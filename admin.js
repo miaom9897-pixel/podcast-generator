@@ -1862,8 +1862,25 @@ async function loadDocumentContent(file) {
     // 显示加载中
     previewEl.innerHTML = '<div class="doc-placeholder"><span class="placeholder-icon">⏳</span><p>加载中...</p></div>';
 
+    // GitHub Raw 基础URL
+    const GITHUB_RAW_BASE = 'https://raw.githubusercontent.com/miaom9897-pixel/podcast-generator/main/';
+
     try {
-        // 优先尝试fetch加载真实文件（通过http服务器时可用）
+        // 方法1: 尝试从GitHub Raw获取（GitHub Pages部署时使用）
+        const githubRawUrl = GITHUB_RAW_BASE + file;
+        const response = await fetch(githubRawUrl);
+        if (response.ok) {
+            const content = await response.text();
+            DOCUMENTS_CONTENT[file] = content;
+            renderDocumentContent(content);
+            return;
+        }
+    } catch (error) {
+        // GitHub Raw失败，尝试其他方法
+    }
+
+    try {
+        // 方法2: 尝试本地fetch（Live Server时使用）
         const response = await fetch(file);
         if (response.ok) {
             const content = await response.text();
@@ -1872,10 +1889,10 @@ async function loadDocumentContent(file) {
             return;
         }
     } catch (error) {
-        // fetch失败，继续尝试嵌入内容
+        // 本地fetch失败，继续尝试嵌入内容
     }
 
-    // 回退到嵌入的文档内容
+    // 方法3: 回退到嵌入的文档内容
     if (window.EMBEDDED_DOCS && window.EMBEDDED_DOCS[file]) {
         renderDocumentContent(window.EMBEDDED_DOCS[file]);
         return;
@@ -1887,13 +1904,9 @@ async function loadDocumentContent(file) {
             <span class="placeholder-icon">⚠️</span>
             <p>无法加载文件</p>
             <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 8px;">
-                请启动本地服务器：<br>
-                <code>npx http-server .</code><br>
-                然后访问 http://localhost:8080/admin.html
+                文件: ${file}<br>
+                请检查文件是否已推送到GitHub
             </p>
-            <button class="btn btn-primary" style="margin-top: 16px;" onclick="openDocFile()">
-                📂 打开文件
-            </button>
         </div>
     `;
 }
