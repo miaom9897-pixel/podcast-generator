@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>后台管理 - 《元英视角》播客智能生产系统</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+    <div class="admin-container">
+
+        <!-- 侧边栏导航 -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h1 class="logo">🎛️ 后台管理</h1>
+                <p class="subtitle">元英视角 v6.0</p>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="#" class="nav-item active" data-tab="positioning">
+                    <span class="nav-icon">🎯</span>
+                    <span class="nav-text">频道定位</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="vertical">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-text">内容垂直度</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="hotspots">
+                    <span class="nav-icon">🔥</span>
+                    <span class="nav-text">热点选题</span>
+                    <span class="nav-badge hot">新</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="structures">
+                    <span class="nav-icon">🏗️</span>
+                    <span class="nav-text">结构模板</span>
+                    <span class="nav-badge" id="structuresCount">10</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="angles">
+                    <span class="nav-icon">🔍</span>
+                    <span class="nav-text">分析角度</span>
+                    <span class="nav-badge" id="anglesCount">30</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="modules">
+                    <span class="nav-icon">📦</span>
+                    <span class="nav-text">模块配置</span>
+                    <span class="nav-badge" id="modulesCount">10</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="endings">
+                    <span class="nav-icon">🎬</span>
+                    <span class="nav-text">收尾方式</span>
+                    <span class="nav-badge" id="endingsCount">3</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="documents">
+                    <span class="nav-icon">📚</span>
+                    <span class="nav-text">文档库</span>
+                    <span class="nav-badge hot">新</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="archives">
+                    <span class="nav-icon">🗃️</span>
+                    <span class="nav-text">存档管理</span>
+                    <span class="nav-badge hot">新</span>
+                </a>
+                <a href="#" class="nav-item" data-tab="settings">
+                    <span class="nav-icon">⚙️</span>
+                    <span class="nav-text">系统设置</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="index.html" class="back-link">
+                    ← 返回前台
+                </a>
+            </div>
+        </aside>
+
+        <!-- 主内容区 -->
+        <main class="main-content">
+
+            <!-- 顶部操作栏 -->
+            <header class="content-header">
+                <div class="header-info">
+                    <h2 id="pageTitle">结构模板管理</h2>
+                    <p id="pageDesc">管理10种播客结构模板，可启用/禁用或编辑详情</p>
+                </div>
+                <div class="header-actions">
+                    <button class="btn btn-secondary" id="resetBtn">
+                        🔄 重置默认
+                    </button>
+                    <button class="btn btn-primary" id="saveAllBtn">
+                        💾 保存全部
+                    </button>
+                </div>
+            </header>
+
+            <!-- 频道定位管理 -->
+            <section id="positioningTab" class="tab-content active">
+                <div class="positioning-grid">
+                    <!-- 频道人设 -->
+                    <div class="card full-width">
+                        <div class="card-header">
+                            <h3>🎭 频道人设</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="persona-grid">
+                                <div class="form-group">
+                                    <label>主播名称</label>
+                                    <input type="text" id="hostName" class="form-input" value="元英" placeholder="主播名字">
+                                </div>
+                                <div class="form-group">
+                                    <label>人设标签</label>
+                                    <input type="text" id="hostPersona" class="form-input" value="冷酷理性、洞察人性、直击真相"
+                                        placeholder="用逗号分隔多个标签">
+                                </div>
+                                <div class="form-group full-width-inner">
+                                    <label>人设描述</label>
+                                    <textarea id="hostDescription" class="form-input" rows="3"
+                                        placeholder="详细描述主播的人物设定...">inspired by 丁元英（《天道》主角），以冷酷理性的视角拆解世事，不讲正确废话，只说残酷真相</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 目标受众 -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>👥 目标受众</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>年龄范围</label>
+                                <input type="text" id="targetAge" class="form-input" value="25-45岁"
+                                    placeholder="如: 25-45岁">
+                            </div>
+                            <div class="form-group">
+                                <label>核心人群画像</label>
+                                <textarea id="targetAudience" class="form-input" rows="4" placeholder="描述目标用户特征...">• 职场中层，遇到35岁危机
+• 创业者，寻找突破口
+• 思考者，对社会现象有困惑
+• 想赚钱但找不到方向的人</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>用户痛点</label>
+                                <textarea id="audiencePains" class="form-input" rows="3"
+                                    placeholder="目标用户的核心痛点...">焦虑未来、迷茫无力、被社会规则绑架、想突破但无从下手</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 频道调性 -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>🎨 频道调性</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>内容风格</label>
+                                <select id="contentStyle" class="form-input">
+                                    <option value="sharp">犬億/尖锐型</option>
+                                    <option value="rational">理性分析型</option>
+                                    <option value="story">故事叙事型</option>
+                                    <option value="warm">温暖治愈型</option>
+                                    <option value="humor">幽默讽刺型</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>语言特点</label>
+                                <textarea id="languageStyle" class="form-input" rows="3" placeholder="描述语言风格...">• 短句为主，冲击力强
+• 用通俗类比解释复杂概念
+• 金句要有"一剑封喉"的效果
+• 不说"应该"，说"事实就是"</textarea>
+                            </div>
+                            <div class="form-group">
+                                <label>绝对禁止</label>
+                                <textarea id="contentForbidden" class="form-input" rows="2" placeholder="绝对不要做的事...">• 讲成功学废话
+• 说教视角
+• 正能量结尾</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 差异化定位 -->
+                    <div class="card full-width">
+                        <div class="card-header">
+                            <h3>⚡ 差异化定位</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="diff-grid">
+                                <div class="form-group">
+                                    <label>核心价值主张</label>
+                                    <input type="text" id="coreValue" class="form-input" value="撕开温情面纱，直视残酷真相">
+                                </div>
+                                <div class="form-group">
+                                    <label>一句话定位</label>
+                                    <input type="text" id="oneLinePosition" class="form-input"
+                                        value="用丁元英的视角，拆解搞钱/职场/人性的游戏规则">
+                                </div>
+                                <div class="form-group">
+                                    <label>与同类频道的区别</label>
+                                    <textarea id="differentiator" class="form-input" rows="3"
+                                        placeholder="你与其他频道的本质区别...">• 不讲"怎么办"，讲"事物本质"
+• 不给希望，给真相
+• 不是"知识分享"，是"认知颠覆"</textarea>
+                                </div>
+                                <div class="form-group">
+                                    <label>竞争对手分析</label>
+                                    <textarea id="competitors" class="form-input" rows="3" placeholder="竞品频道及你的优势...">• 成功学博主：我们更真实、不画大饼
+• 理财教育：我们讲底层逻辑，不卖课
+• 情感博主：我们照见人性，不给安慰</textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 内容垂直度管理 -->
+            <section id="verticalTab" class="tab-content">
+                <div class="vertical-grid">
+                    <!-- 核心赛道 -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>🎯 核心赛道</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>主赛道</label>
+                                <select id="mainTrack" class="form-input">
+                                    <option value="money">💰搞钱/财富</option>
+                                    <option value="career">💼职场/事业</option>
+                                    <option value="human">🧠人性/心理</option>
+                                    <option value="society">🌍社会/趋势</option>
+                                    <option value="life">❤️人生/哲学</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>子赛道（最多3个）</label>
+                                <div class="tags-input" id="subTracksContainer">
+                                    <div class="tag-list" id="subTracksList">
+                                        <!-- 动态生成 -->
+                                    </div>
+                                    <input type="text" id="subTrackInput" class="tag-input" placeholder="输入并回车添加...">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 内容比例 -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>📊 内容比例配置</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="ratio-item">
+                                <label><span class="ratio-emoji">💰</span> 搞钱类</label>
+                                <input type="range" id="ratioMoney" min="0" max="100" value="40" class="ratio-slider">
+                                <span class="ratio-value" id="ratioMoneyValue">40%</span>
+                            </div>
+                            <div class="ratio-item">
+                                <label><span class="ratio-emoji">💼</span> 职场类</label>
+                                <input type="range" id="ratioCareer" min="0" max="100" value="30" class="ratio-slider">
+                                <span class="ratio-value" id="ratioCareerValue">30%</span>
+                            </div>
+                            <div class="ratio-item">
+                                <label><span class="ratio-emoji">🧠</span> 人性类</label>
+                                <input type="range" id="ratioHuman" min="0" max="100" value="20" class="ratio-slider">
+                                <span class="ratio-value" id="ratioHumanValue">20%</span>
+                            </div>
+                            <div class="ratio-item">
+                                <label><span class="ratio-emoji">❤️</span> 其他</label>
+                                <input type="range" id="ratioOther" min="0" max="100" value="10" class="ratio-slider">
+                                <span class="ratio-value" id="ratioOtherValue">10%</span>
+                            </div>
+                            <div class="ratio-total">
+                                <span>总计: <strong id="ratioTotal">100%</strong></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 话题库 -->
+                    <div class="card full-width">
+                        <div class="card-header">
+                            <h3>📝 话题库管理</h3>
+                            <button class="btn btn-sm btn-add" id="addTopicBtn">➕ 添加话题</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="topics-container" id="topicsContainer">
+                                <!-- 动态生成 -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 禁区话题 -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>🚫 禁区话题</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>绝对不碰的话题</label>
+                                <textarea id="forbiddenTopics" class="form-input" rows="4" placeholder="每行一个禁区话题...">• 政治敏感话题
+• 宗教争议
+• 造谣/讽谤他人
+• 违法边缘内容
+• 给具体投资建议</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 关键词云 -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>🏷️ 核心关键词</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>高频关键词</label>
+                                <div class="tags-input" id="keywordsContainer">
+                                    <div class="tag-list" id="keywordsList">
+                                        <!-- 动态生成 -->
+                                    </div>
+                                    <input type="text" id="keywordInput" class="tag-input" placeholder="输入关键词...">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>特色表达</label>
+                                <textarea id="signature Phrases" class="form-input" rows="3" placeholder="频道特色口头禅...">• "这就是真相"
+• "弱势文化 vs 强势文化"
+• "韭菜视角 vs 庄家视角"
+• "游戏规则"</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 热点选题工具 -->
+            <section id="hotspotsTab" class="tab-content">
+                <div class="hotspots-grid">
+                    <!-- 热点话题推荐 -->
+                    <div class="card full-width">
+                        <div class="card-header">
+                            <h3>🔥 热点话题推荐</h3>
+                            <div class="header-actions-inline">
+                                <select id="hotspotCategory" class="form-input-sm">
+                                    <option value="all">全部分类</option>
+                                    <option value="policy">政策解读</option>
+                                    <option value="economy">经济趋势</option>
+                                    <option value="society">社会现象</option>
+                                    <option value="overseas">海外华人</option>
+                                </select>
+                                <button class="btn btn-sm btn-primary" id="refreshHotspotsBtn">🔄 刷新</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="hotspots-list" id="hotspotsList">
+                                <!-- 动态生成 -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 爆款潜力分析 -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>📈 爆款潜力分析</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>输入话题进行分析</label>
+                                <input type="text" id="analyzeTopicInput" class="form-input"
+                                    placeholder="例如: 海南封关对普通人的影响">
+                            </div>
+                            <button class="btn btn-primary full-width" id="analyzeTopicBtn">🔍 分析爆款潜力</button>
+                            <div class="analysis-result" id="analysisResult">
+                                <!-- 分析结果 -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 快速生成 -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>⚡ 快速生成</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="quick-actions">
+                                <button class="quick-action-btn" data-action="title">
+                                    <span class="action-icon">🎯</span>
+                                    <span>生成标题</span>
+                                </button>
+                                <button class="quick-action-btn" data-action="hook">
+                                    <span class="action-icon">🎣</span>
+                                    <span>生成开场钩子</span>
+                                </button>
+                                <button class="quick-action-btn" data-action="outline">
+                                    <span class="action-icon">📝</span>
+                                    <span>生成大纲</span>
+                                </button>
+                                <button class="quick-action-btn" data-action="golden">
+                                    <span class="action-icon">💡</span>
+                                    <span>生成金句</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 话题匹配度检测 -->
+                    <div class="card full-width">
+                        <div class="card-header">
+                            <h3>✅ 话题与频道匹配度</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="match-checklist">
+                                <div class="match-item">
+                                    <input type="checkbox" id="matchAudience">
+                                    <label for="matchAudience">目标受众关心（海外华人中老年）</label>
+                                </div>
+                                <div class="match-item">
+                                    <input type="checkbox" id="matchPain">
+                                    <label for="matchPain">触及用户痛点（资产/政策/移民）</label>
+                                </div>
+                                <div class="match-item">
+                                    <input type="checkbox" id="matchDare">
+                                    <label for="matchDare">敢说墙内不让说的话</label>
+                                </div>
+                                <div class="match-item">
+                                    <input type="checkbox" id="matchTimely">
+                                    <label for="matchTimely">时效性强（近期热点）</label>
+                                </div>
+                                <div class="match-item">
+                                    <input type="checkbox" id="matchUnique">
+                                    <label for="matchUnique">有独特视角（不是新闻搬运）</label>
+                                </div>
+                            </div>
+                            <div class="match-score">
+                                <span>匹配度评分：</span>
+                                <strong id="matchScoreValue">0/5</strong>
+                                <span id="matchScoreLabel" class="score-label">请勾选上方检查项</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 结构模板管理 -->
+            <section id="structuresTab" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>结构模板列表</h3>
+                        <button class="btn btn-sm btn-add" id="addStructureBtn">
+                            ➕ 添加结构
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="structures-list" id="structuresList">
+                            <!-- 动态生成 -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 分析角度管理 -->
+            <section id="anglesTab" class="tab-content">
+                <div class="angles-categories" id="anglesCategories">
+                    <!-- 动态生成 -->
+                </div>
+            </section>
+
+            <!-- 模块配置管理 -->
+            <section id="modulesTab" class="tab-content">
+                <div class="modules-container">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>必选模块（核心模块，不可禁用）</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="modules-list" id="requiredModulesList">
+                                <!-- 动态生成 -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>可选模块</h3>
+                            <button class="btn btn-sm btn-add" id="addModuleBtn">
+                                ➕ 添加模块
+                            </button>
+                        </div>
+                        <div class="card-body">
+                            <div class="modules-list" id="optionalModulesList">
+                                <!-- 动态生成 -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 收尾方式管理 -->
+            <section id="endingsTab" class="tab-content">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>收尾方式列表</h3>
+                        <button class="btn btn-sm btn-add" id="addEndingBtn">
+                            ➕ 添加收尾方式
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="endings-list" id="endingsList">
+                            <!-- 动态生成 -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 文档库 -->
+            <section id="documentsTab" class="tab-content">
+                <div class="documents-container">
+                    <!-- 文档列表 -->
+                    <div class="documents-sidebar">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>📁 策略文档</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="doc-list" id="docsDocList">
+                                    <div class="doc-item" data-file="docs/channel-strategy.md">
+                                        <span class="doc-icon">📋</span>
+                                        <span class="doc-name">频道战略定位</span>
+                                    </div>
+                                    <div class="doc-item" data-file="docs/character-guide.md">
+                                        <span class="doc-icon">🎭</span>
+                                        <span class="doc-name">丁元英人设指南</span>
+                                    </div>
+                                    <div class="doc-item" data-file="docs/content-calendar.md">
+                                        <span class="doc-icon">📅</span>
+                                        <span class="doc-name">内容日历</span>
+                                    </div>
+                                    <div class="doc-item" data-file="docs/meeting-notes.md">
+                                        <span class="doc-icon">📝</span>
+                                        <span class="doc-name">会议记录</span>
+                                    </div>
+                                    <div class="doc-item" data-file="docs/target-audience.md">
+                                        <span class="doc-icon">👥</span>
+                                        <span class="doc-name">目标受众分析</span>
+                                        <span class="doc-badge hot">新</span>
+                                    </div>
+                                    <div class="doc-item" data-file="docs/script-template.md">
+                                        <span class="doc-icon">📐</span>
+                                        <span class="doc-name">脚本结构模板</span>
+                                        <span class="doc-badge hot">新</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>📜 脚本库</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="doc-list" id="scriptsDocList">
+                                    <div class="doc-item" data-file="scripts/episode-04-sony-hainan.md">
+                                        <span class="doc-icon">🎬</span>
+                                        <span class="doc-name">第4期：索尼+海南</span>
+                                        <span class="doc-badge">已发</span>
+                                    </div>
+                                    <div class="doc-item" data-file="scripts/capital-stories-01-li-ka-shing.md">
+                                        <span class="doc-icon">💰</span>
+                                        <span class="doc-name">资本往事01：李嘉诚</span>
+                                    </div>
+                                    <div class="doc-item" data-file="scripts/capital-stories-02-chu-shijian.md">
+                                        <span class="doc-icon">💰</span>
+                                        <span class="doc-name">资本往事02：褚时健</span>
+                                        <span class="doc-badge hot">当前v5</span>
+                                    </div>
+                                    <div class="doc-item" data-file="scripts/capital-stories-02-chu-shijian-v1.md"
+                                        style="padding-left: 32px;">
+                                        <span class="doc-icon">📄</span>
+                                        <span class="doc-name">└ v1.0</span>
+                                    </div>
+                                    <div class="doc-item" data-file="scripts/capital-stories-02-chu-shijian-v2.md"
+                                        style="padding-left: 32px;">
+                                        <span class="doc-icon">📄</span>
+                                        <span class="doc-name">└ v2.0</span>
+                                    </div>
+                                    <div class="doc-item" data-file="scripts/capital-stories-02-chu-shijian-v3.md"
+                                        style="padding-left: 32px;">
+                                        <span class="doc-icon">📄</span>
+                                        <span class="doc-name">└ v3.0 (三个规律版)</span>
+                                    </div>
+                                    <div class="doc-item" data-file="scripts/capital-stories-02-chu-shijian-v4.md"
+                                        style="padding-left: 32px;">
+                                        <span class="doc-icon">📄</span>
+                                        <span class="doc-name">└ v4.0 (聊天版)</span>
+                                    </div>
+                                    <div class="doc-item" data-file="scripts/capital-stories-02-chu-shijian-v5.md"
+                                        style="padding-left: 32px;">
+                                        <span class="doc-icon">📄</span>
+                                        <span class="doc-name">└ v5.0 (合并版) ⭐</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 文档预览 -->
+                    <div class="documents-preview">
+                        <div class="card full-height">
+                            <div class="card-header">
+                                <h3 id="docPreviewTitle">📖 选择一个文档查看</h3>
+                                <div class="doc-actions">
+                                    <button class="btn btn-sm" id="copyDocBtn" style="display:none;">📋 复制内容</button>
+                                    <button class="btn btn-sm btn-primary" id="openDocBtn" style="display:none;">📂
+                                        打开文件</button>
+                                </div>
+                            </div>
+                            <div class="card-body doc-preview-body">
+                                <div id="docPreviewContent" class="doc-preview-content">
+                                    <div class="doc-placeholder">
+                                        <span class="placeholder-icon">📚</span>
+                                        <p>点击左侧文档查看内容</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 存档管理 -->
+            <section id="archivesTab" class="tab-content">
+                <div class="archives-container">
+                    <!-- 聊天记录存档 -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>💬 聊天记录存档</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="archive-list" id="chatLogsList">
+                                <div class="archive-item"
+                                    data-file="archives/chat-logs/2024-12-23-strategy-optimization.md">
+                                    <span class="archive-icon">📝</span>
+                                    <div class="archive-info">
+                                        <span class="archive-title">2024-12-23 策略优化讨论</span>
+                                        <span class="archive-desc">内容策略调整 + 褚时健脚本创作 + 前端功能</span>
+                                    </div>
+                                    <span class="archive-date">今天</span>
+                                </div>
+                            </div>
+                            <p class="archive-note">💡 每次重要讨论后，系统会自动保存聊天摘要</p>
+                        </div>
+                    </div>
+
+                    <!-- 脚本版本存档 -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>📜 脚本版本历史</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="archive-list" id="scriptVersionsList">
+                                <div class="archive-item"
+                                    data-file="archives/script-versions/capital-stories-02-versions.md">
+                                    <span class="archive-icon">📄</span>
+                                    <div class="archive-info">
+                                        <span class="archive-title">资本往事02：褚时健</span>
+                                        <span class="archive-desc">v2.0 确认版 - 深度分析版</span>
+                                    </div>
+                                    <span class="archive-badge confirmed">✅ 已确认</span>
+                                </div>
+                                <div class="archive-item">
+                                    <span class="archive-icon">📄</span>
+                                    <div class="archive-info">
+                                        <span class="archive-title">第4期：索尼+海南</span>
+                                        <span class="archive-desc">v1.0 - 首发版本</span>
+                                    </div>
+                                    <span class="archive-badge confirmed">✅ 已发布</span>
+                                </div>
+                                <div class="archive-item">
+                                    <span class="archive-icon">📄</span>
+                                    <div class="archive-info">
+                                        <span class="archive-title">资本往事01：李嘉诚</span>
+                                        <span class="archive-desc">v1.0 - 待发布</span>
+                                    </div>
+                                    <span class="archive-badge">待发布</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 存档预览 -->
+                    <div class="card full-width">
+                        <div class="card-header">
+                            <h3 id="archivePreviewTitle">📖 点击左侧存档查看详情</h3>
+                        </div>
+                        <div class="card-body">
+                            <div id="archivePreviewContent" class="archive-preview-content">
+                                <div class="doc-placeholder">
+                                    <span class="placeholder-icon">🗃️</span>
+                                    <p>选择一个存档查看内容</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 系统设置 -->
+            <section id="settingsTab" class="tab-content">
+                <div class="settings-grid">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>🎙️ 基础配置</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>系统名称</label>
+                                <input type="text" id="systemName" value="《元英视角》" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label>系统版本</label>
+                                <input type="text" id="systemVersion" value="v6.0" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label>系统标语</label>
+                                <input type="text" id="systemTagline" value="撕开温情面纱，直视残酷真相" class="form-input">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>📝 脚本参数</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>目标时长（分钟）</label>
+                                <input type="number" id="targetDuration" value="20" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label>目标字数</label>
+                                <input type="number" id="targetWords" value="10000" class="form-input">
+                            </div>
+                            <div class="form-group">
+                                <label>最大角度选择数</label>
+                                <input type="number" id="maxAngles" value="5" class="form-input">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>🎨 界面设置</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label>主题色</label>
+                                <input type="color" id="primaryColor" value="#6366f1" class="form-input color-input">
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" id="darkModeDefault" checked>
+                                    默认深色模式
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <label>
+                                    <input type="checkbox" id="showWelcome" checked>
+                                    显示欢迎页面
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>💾 数据管理</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <button class="btn btn-secondary full-width" id="exportConfigBtn">
+                                    📤 导出配置
+                                </button>
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-secondary full-width" id="importConfigBtn">
+                                    📥 导入配置
+                                </button>
+                                <input type="file" id="importConfigInput" accept=".json" style="display: none;">
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-danger full-width" id="clearDataBtn">
+                                    🗑️ 清除所有数据
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- 编辑弹窗 -->
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">编辑项目</h3>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- 动态生成表单 -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" id="cancelEdit">取消</button>
+                <button class="btn btn-primary" id="confirmEdit">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast 提示 -->
+    <div id="toast" class="toast">
+        <span class="toast-message"></span>
+    </div>
+
+    <script src="docs-content.js"></script>
+    <script src="admin.js"></script>
+</body>
+
+</html>

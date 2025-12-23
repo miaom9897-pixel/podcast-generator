@@ -1,0 +1,6 @@
+@echo off
+echo 正在打开Google Drive中的播客项目...
+code "G:\我的云端硬盘\podcast-generator"
+echo.
+echo VS Code已打开，请等待几秒...
+timeout /t 3

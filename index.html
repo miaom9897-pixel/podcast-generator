@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《元英视角》播客智能生产系统 v6.0</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <!-- 主容器 -->
+    <div class="app-container">
+
+        <!-- 头部 -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1 class="logo">《元英视角》</h1>
+                <p class="tagline">撕开温情面纱，直视残酷真相</p>
+            </div>
+            <div class="system-info">
+                <span class="version">v6.0</span>
+                <span class="spec">20分钟 / 10000字</span>
+                <a href="admin.html" class="admin-link" title="后台管理">🛠️</a>
+            </div>
+        </header>
+
+        <!-- 主内容区 -->
+        <main class="main-content">
+
+            <!-- 左侧：输入与配置 -->
+            <section class="input-section">
+
+                <!-- 主题输入 -->
+                <div class="module topic-input">
+                    <div class="module-header">
+                        <h2>📝 主题输入</h2>
+                        <span class="char-count">0 字</span>
+                    </div>
+                    <textarea id="topicInput" class="topic-textarea"
+                        placeholder="请输入播客主题...&#10;&#10;示例：&#10;• 为什么你越努力，越穷？&#10;• 35岁为什么会被裁员？&#10;• 婚姻的本质是什么？&#10;• 普通人如何实现阶层跃迁？"></textarea>
+                </div>
+
+                <!-- 结构选择 -->
+                <div class="module structure-select">
+                    <div class="module-header">
+                        <h2>🏗️ 结构类型</h2>
+                        <button class="info-btn" data-info="structure">?</button>
+                    </div>
+                    <select id="structureType" class="custom-select">
+                        <option value="auto">🤖 智能匹配（推荐）</option>
+                        <option value="classic">经典拆解型</option>
+                        <option value="socratic">苏格拉底式</option>
+                        <option value="debate">对比辩论型</option>
+                        <option value="timeline">时间轴叙事型</option>
+                        <option value="perspective">多角色视角型</option>
+                        <option value="case">案例解剖型</option>
+                        <option value="data">数据驱动型</option>
+                        <option value="experiment">思想实验型</option>
+                        <option value="history">历史镜像型</option>
+                        <option value="zen">极简禅宗型</option>
+                    </select>
+                </div>
+
+                <!-- 分析角度 -->
+                <div class="module angles-select">
+                    <div class="module-header">
+                        <h2>🔍 分析角度</h2>
+                        <span class="selected-count">已选: <span id="angleCount">0</span>/5</span>
+                    </div>
+                    <div class="angles-grid" id="anglesGrid">
+                        <!-- 动态生成 -->
+                    </div>
+                </div>
+
+                <!-- 模块配置 -->
+                <div class="module modules-config">
+                    <div class="module-header">
+                        <h2>⚙️ 模块配置</h2>
+                    </div>
+                    <div class="modules-list">
+                        <div class="module-group">
+                            <h3>必选模块</h3>
+                            <label class="module-item disabled">
+                                <input type="checkbox" checked disabled>
+                                <span>A: 开场钩子</span>
+                            </label>
+                            <label class="module-item disabled">
+                                <input type="checkbox" checked disabled>
+                                <span>B: 认知升级</span>
+                            </label>
+                            <label class="module-item disabled">
+                                <input type="checkbox" checked disabled>
+                                <span>C: 对话冲突</span>
+                            </label>
+                            <label class="module-item disabled">
+                                <input type="checkbox" checked disabled>
+                                <span>D: 高能收尾</span>
+                            </label>
+                        </div>
+                        <div class="module-group">
+                            <h3>可选模块</h3>
+                            <label class="module-item">
+                                <input type="checkbox" id="moduleE">
+                                <span>E: 案例（0-2个）</span>
+                            </label>
+                            <label class="module-item">
+                                <input type="checkbox" id="moduleF">
+                                <span>F: 数据/理论</span>
+                            </label>
+                            <label class="module-item">
+                                <input type="checkbox" id="moduleG">
+                                <span>G: 历史对比</span>
+                            </label>
+                            <label class="module-item">
+                                <input type="checkbox" id="moduleH">
+                                <span>H: 思想实验</span>
+                            </label>
+                            <label class="module-item">
+                                <input type="checkbox" id="moduleI">
+                                <span>I: 多角色视角</span>
+                            </label>
+                            <label class="module-item">
+                                <input type="checkbox" id="moduleJ">
+                                <span>J: 互动埋点</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 收尾方式 -->
+                <div class="module ending-select">
+                    <div class="module-header">
+                        <h2>🎬 收尾方式</h2>
+                    </div>
+                    <div class="ending-options">
+                        <label class="ending-option">
+                            <input type="radio" name="ending" value="question" checked>
+                            <div class="ending-card">
+                                <h3>终极拷问</h3>
+                                <p>抛出让人失眠的问题</p>
+                            </div>
+                        </label>
+                        <label class="ending-option">
+                            <input type="radio" name="ending" value="prophecy">
+                            <div class="ending-card">
+                                <h3>残酷预言</h3>
+                                <p>预言未来趋势，制造紧迫感</p>
+                            </div>
+                        </label>
+                        <label class="ending-option">
+                            <input type="radio" name="ending" value="philosophy">
+                            <div class="ending-card">
+                                <h3>哲学升华</h3>
+                                <p>拔高到生命层次</p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 生成按钮 -->
+                <button id="generateBtn" class="generate-btn">
+                    <span class="btn-text">🎙️ 生成脚本</span>
+                    <span class="btn-loader" style="display: none;">
+                        <span class="loader"></span>
+                        生成中...
+                    </span>
+                </button>
+
+            </section>
+
+            <!-- 右侧：结果展示 -->
+            <section class="output-section">
+
+                <!-- 欢迎屏幕 -->
+                <div id="welcomeScreen" class="welcome-screen">
+                    <div class="welcome-content">
+                        <h2>🎯 系统就绪</h2>
+                        <p class="welcome-desc">
+                            用丁元英的冷酷理性，拆解搞钱/职场/人性的残酷真相
+                        </p>
+                        <div class="welcome-features">
+                            <div class="feature">
+                                <span class="feature-icon">🏗️</span>
+                                <span>10种结构模板</span>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-icon">🔍</span>
+                                <span>30大分析角度</span>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-icon">⚡</span>
+                                <span>模块化配置</span>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-icon">💎</span>
+                                <span>高密度输出</span>
+                            </div>
+                        </div>
+                        <p class="welcome-hint">
+                            ← 请在左侧输入主题并配置参数
+                        </p>
+                    </div>
+                </div>
+
+                <!-- 结果展示 -->
+                <div id="resultScreen" class="result-screen" style="display: none;">
+
+                    <!-- 脚本头部信息 -->
+                    <div class="script-header">
+                        <h2 id="scriptTitle" class="script-title"></h2>
+                        <div class="script-meta">
+                            <span id="scriptDuration"></span>
+                            <span id="scriptWords"></span>
+                            <span id="scriptStructure"></span>
+                        </div>
+                        <div class="script-actions">
+                            <button class="action-btn" id="copyBtn">📋 复制</button>
+                            <button class="action-btn" id="exportBtn">💾 导出</button>
+                            <button class="action-btn" id="newBtn">➕ 新建</button>
+                        </div>
+                    </div>
+
+                    <!-- 脚本内容 -->
+                    <div class="script-content" id="scriptContent">
+                        <!-- 动态生成 -->
+                    </div>
+
+                    <!-- 金句摘要 -->
+                    <div class="golden-quotes" id="goldenQuotes">
+                        <h3>💡 核心金句</h3>
+                        <div class="quotes-list" id="quotesList">
+                            <!-- 动态生成 -->
+                        </div>
+                    </div>
+
+                    <!-- 创作说明 -->
+                    <div class="creation-info" id="creationInfo">
+                        <h3>📊 创作说明</h3>
+                        <div class="info-grid" id="infoGrid">
+                            <!-- 动态生成 -->
+                        </div>
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+        <!-- 信息弹窗 -->
+        <div id="infoModal" class="modal" style="display: none;">
+            <div class="modal-content">
+                <span class="modal-close">&times;</span>
+                <div id="modalBody"></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- 脚本 -->
+    <script src="config-loader.js"></script>
+    <script src="data/angles.js"></script>
+    <script src="data/structures.js"></script>
+    <script src="data/modules.js"></script>
+    <script src="engine/templates.js"></script>
+    <script src="engine/generator.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
