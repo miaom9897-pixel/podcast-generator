@@ -1592,6 +1592,31 @@ body {
     color: white;
 }
 
+/* 版本组样式 */
+.doc-group {
+    margin-top: 4px;
+}
+
+.doc-group-header {
+    border-left: 3px solid var(--primary);
+}
+
+.doc-versions {
+    margin-left: 16px;
+    padding-left: 12px;
+    border-left: 2px solid var(--border);
+    margin-top: 4px;
+}
+
+.doc-version {
+    padding: 6px 10px !important;
+    font-size: 0.85rem;
+}
+
+.doc-version:hover {
+    border-left-color: var(--primary);
+}
+
 /* 文档预览区域 */
 .doc-preview-body {
     padding: 0 !important;
