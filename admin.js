@@ -1842,17 +1842,78 @@ async function selectDocument(file, itemElement) {
     document.querySelectorAll('.doc-item').forEach(item => item.classList.remove('active'));
     itemElement.classList.add('active');
 
+    // 检查是否有多版本
+    const hasVersions = itemElement.dataset.hasVersions === 'true';
+
+    if (hasVersions) {
+        // 显示版本选择器
+        const scriptName = itemElement.dataset.scriptName || '选择版本';
+        const versions = JSON.parse(itemElement.dataset.versions || '[]');
+        showVersionSelector(scriptName, versions);
+    } else {
+        // 直接显示内容
+        currentDocFile = file;
+
+        // 更新标题
+        const docName = itemElement.querySelector('.doc-name').textContent;
+        document.getElementById('docPreviewTitle').textContent = `📖 ${docName}`;
+
+        // 显示按钮
+        document.getElementById('copyDocBtn').style.display = 'inline-block';
+        document.getElementById('openDocBtn').style.display = 'inline-block';
+
+        // 加载文档内容
+        await loadDocumentContent(file);
+    }
+}
+
+// 显示版本选择器
+function showVersionSelector(scriptName, versions) {
+    const previewEl = document.getElementById('docPreviewContent');
+    document.getElementById('docPreviewTitle').textContent = `📖 ${scriptName} - 选择版本`;
+
+    // 隐藏按钮
+    document.getElementById('copyDocBtn').style.display = 'none';
+    document.getElementById('openDocBtn').style.display = 'none';
+
+    let html = `
+        <div class="version-selector">
+            <h3>📚 ${scriptName}</h3>
+            <p class="version-selector-subtitle">请选择要查看的版本：</p>
+            <div class="version-list">
+    `;
+
+    versions.forEach((v, index) => {
+        const isCurrent = v.status === '当前';
+        html += `
+            <div class="version-item ${isCurrent ? 'version-current' : ''}" onclick="selectVersion('${v.file}', '${v.label}')">
+                <span class="version-icon">${isCurrent ? '⭐' : '📄'}</span>
+                <span class="version-label">${v.label}</span>
+                <span class="version-status ${isCurrent ? 'status-current' : 'status-history'}">${v.status}</span>
+            </div>
+        `;
+    });
+
+    html += `
+            </div>
+        </div>
+    `;
+
+    previewEl.innerHTML = html;
+}
+
+// 选择版本后加载内容
+async function selectVersion(file, label) {
     currentDocFile = file;
 
     // 更新标题
-    const docName = itemElement.querySelector('.doc-name').textContent;
-    document.getElementById('docPreviewTitle').textContent = `📖 ${docName}`;
+    document.getElementById('docPreviewTitle').textContent = `📖 ${label}`;
 
     // 显示按钮
     document.getElementById('copyDocBtn').style.display = 'inline-block';
     document.getElementById('openDocBtn').style.display = 'inline-block';
 
-    // 加载文档内容
+    // 加载内容
     await loadDocumentContent(file);
 }
 

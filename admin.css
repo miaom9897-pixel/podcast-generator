@@ -1617,6 +1617,84 @@ body {
     border-left-color: var(--primary);
 }
 
+/* 版本选择器样式 */
+.version-selector {
+    padding: 40px;
+    text-align: center;
+}
+
+.version-selector h3 {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.version-selector-subtitle {
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+}
+
+.version-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.version-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 20px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.version-item:hover {
+    background: var(--bg-active);
+    border-color: var(--primary);
+    transform: translateX(4px);
+}
+
+.version-current {
+    border-color: var(--success);
+    background: rgba(16, 185, 129, 0.1);
+}
+
+.version-current:hover {
+    border-color: var(--success);
+}
+
+.version-icon {
+    font-size: 1.2rem;
+}
+
+.version-label {
+    flex: 1;
+    text-align: left;
+    font-weight: 500;
+}
+
+.version-status {
+    font-size: 0.75rem;
+    padding: 4px 12px;
+    border-radius: 12px;
+}
+
+.status-current {
+    background: var(--success);
+    color: white;
+}
+
+.status-history {
+    background: var(--bg-dark);
+    color: var(--text-secondary);
+}
+
 /* 文档预览区域 */
 .doc-preview-body {
     padding: 0 !important;
