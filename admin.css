@@ -1695,6 +1695,96 @@ body {
     color: var(--text-secondary);
 }
 
+/* 时间线样式 */
+.timeline {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.timeline-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 0;
+    cursor: pointer;
+    position: relative;
+}
+
+.timeline-item:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 95px;
+    top: 50px;
+    width: 2px;
+    height: calc(100% - 20px);
+    background: var(--border);
+}
+
+.timeline-item:hover .timeline-content {
+    background: var(--bg-active);
+    border-color: var(--primary);
+}
+
+.timeline-date {
+    width: 80px;
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.timeline-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--border);
+    border: 2px solid var(--bg-card);
+    flex-shrink: 0;
+    z-index: 1;
+}
+
+.dot-current {
+    background: var(--success);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+}
+
+.timeline-content {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    transition: all 0.2s ease;
+}
+
+.timeline-current .timeline-content {
+    border-color: var(--success);
+    background: rgba(16, 185, 129, 0.1);
+}
+
+.timeline-icon {
+    font-size: 1.2rem;
+}
+
+.timeline-label {
+    flex: 1;
+    font-weight: 500;
+}
+
+.timeline-badge {
+    font-size: 0.7rem;
+    padding: 4px 10px;
+    background: var(--success);
+    color: white;
+    border-radius: 12px;
+}
+
 /* 文档预览区域 */
 .doc-preview-body {
     padding: 0 !important;

@@ -1867,29 +1867,37 @@ async function selectDocument(file, itemElement) {
     }
 }
 
-// 显示版本选择器
+// 显示版本选择器（时间线形式）
 function showVersionSelector(scriptName, versions) {
     const previewEl = document.getElementById('docPreviewContent');
-    document.getElementById('docPreviewTitle').textContent = `📖 ${scriptName} - 选择版本`;
+    document.getElementById('docPreviewTitle').textContent = `📖 ${scriptName} - 版本历史`;
 
     // 隐藏按钮
     document.getElementById('copyDocBtn').style.display = 'none';
     document.getElementById('openDocBtn').style.display = 'none';
 
+    // 按日期倒序排列（最新在前）
+    const sortedVersions = [...versions].sort((a, b) => new Date(b.date) - new Date(a.date));
+
     let html = `
         <div class="version-selector">
             <h3>📚 ${scriptName}</h3>
-            <p class="version-selector-subtitle">请选择要查看的版本：</p>
-            <div class="version-list">
+            <p class="version-selector-subtitle">版本时间线（共 ${versions.length} 个版本）</p>
+            <div class="timeline">
     `;
 
-    versions.forEach((v, index) => {
+    sortedVersions.forEach((v, index) => {
         const isCurrent = v.status === '当前';
+        const dateStr = v.date || '未知日期';
         html += `
-            <div class="version-item ${isCurrent ? 'version-current' : ''}" onclick="selectVersion('${v.file}', '${v.label}')">
-                <span class="version-icon">${isCurrent ? '⭐' : '📄'}</span>
-                <span class="version-label">${v.label}</span>
-                <span class="version-status ${isCurrent ? 'status-current' : 'status-history'}">${v.status}</span>
+            <div class="timeline-item ${isCurrent ? 'timeline-current' : ''}" onclick="selectVersion('${v.file}', '${v.label}')">
+                <div class="timeline-date">${dateStr}</div>
+                <div class="timeline-dot ${isCurrent ? 'dot-current' : ''}"></div>
+                <div class="timeline-content">
+                    <span class="timeline-icon">${isCurrent ? '⭐' : '📄'}</span>
+                    <span class="timeline-label">${v.label}</span>
+                    ${isCurrent ? '<span class="timeline-badge">当前版本</span>' : ''}
+                </div>
             </div>
         `;
     });
