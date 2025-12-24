@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>元英视角 - 缩略图样式2：单人聚焦</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: #1a1a1a;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .controls {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            width: 100%;
+            max-width: 1280px;
+        }
+
+        .controls h2 {
+            color: #fff;
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .control-row {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .control-group {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .control-group label {
+            color: #aaa;
+            display: block;
+            margin-bottom: 5px;
+            font-size: 14px;
+        }
+
+        .control-group input[type="text"],
+        .control-group input[type="file"],
+        .control-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #444;
+            border-radius: 6px;
+            background: #333;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: transform 0.2s;
+        }
+
+        .btn:hover {
+            transform: scale(1.02);
+        }
+
+        .style-tag {
+            display: inline-block;
+            background: #9b59b6;
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 10px;
+        }
+
+        /* Thumbnail Canvas */
+        .thumbnail-container {
+            position: relative;
+            width: 1280px;
+            height: 720px;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            overflow: hidden;
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Background image */
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.3;
+        }
+
+        /* Character - Center large */
+        .character-center {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 100%;
+            width: 60%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 5;
+        }
+
+        .character-center img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            filter: contrast(1.1) brightness(0.9);
+        }
+
+        .character-placeholder {
+            width: 400px;
+            height: 600px;
+            background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.03) 100%);
+            border: 2px dashed #444;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 16px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* Text overlay - Left side */
+        .text-overlay {
+            position: absolute;
+            top: 50%;
+            left: 60px;
+            transform: translateY(-50%);
+            text-align: left;
+            z-index: 10;
+            max-width: 45%;
+        }
+
+        .main-title {
+            font-size: 88px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow:
+                4px 4px 0 #000,
+                -2px -2px 0 #000,
+                2px -2px 0 #000,
+                -2px 2px 0 #000,
+                0 4px 30px rgba(0, 0, 0, 0.9);
+            line-height: 1.1;
+            margin-bottom: 15px;
+        }
+
+        .sub-title {
+            font-size: 42px;
+            font-weight: 700;
+            color: #f5c518;
+            text-shadow:
+                2px 2px 0 #000,
+                0 4px 20px rgba(0, 0, 0, 0.9);
+        }
+
+        /* Logo */
+        .logo {
+            position: absolute;
+            bottom: 30px;
+            left: 60px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 8px 24px;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 10;
+        }
+
+        .logo-text {
+            color: #fff;
+            font-size: 20px;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        /* Episode badge */
+        .episode-badge {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 20px;
+            font-weight: 700;
+            z-index: 10;
+            box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+        }
+
+        /* Gradient overlays */
+        .gradient-left {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 50%;
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+            z-index: 3;
+        }
+
+        .gradient-bottom {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 40%;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0%, transparent 100%);
+            z-index: 3;
+        }
+
+        /* Decorative elements */
+        .accent-line {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #f5c518, #e74c3c);
+            border-radius: 2px;
+            z-index: 10;
+        }
+
+        .instructions {
+            max-width: 1280px;
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            color: #ccc;
+        }
+
+        .instructions h3 {
+            color: #fff;
+            margin-bottom: 10px;
+        }
+
+        .instructions ul {
+            margin-left: 20px;
+        }
+
+        .instructions li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="controls">
+        <h2>📺 元英视角 - 缩略图生成器 <span class="style-tag">样式2：单人聚焦</span></h2>
+        <div class="control-row">
+            <div class="control-group">
+                <label>主角人物图（居中大图）</label>
+                <input type="file" id="mainImage" accept="image/*" onchange="loadImage()">
+            </div>
+            <div class="control-group">
+                <label>主标题（大字）</label>
+                <input type="text" id="mainTitle" value="能干是罪？" oninput="updateThumbnail()">
+            </div>
+            <div class="control-group">
+                <label>副标题（黄色）</label>
+                <input type="text" id="subTitle" value="褚时健的200亿真相" oninput="updateThumbnail()">
+            </div>
+        </div>
+        <div class="control-row">
+            <div class="control-group">
+                <label>期数</label>
+                <input type="text" id="episode" value="资本往事 EP02" oninput="updateThumbnail()">
+            </div>
+            <div class="control-group">
+                <label>背景图（可选）</label>
+                <input type="file" id="bgImage" accept="image/*" onchange="loadBackground()">
+            </div>
+            <div class="control-group" style="display: flex; align-items: flex-end;">
+                <button class="btn" onclick="downloadThumbnail()">📥 下载缩略图</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="thumbnail-container" id="thumbnail">
+        <!-- Background Image -->
+        <div class="background-image" id="bgLayer"></div>
+
+        <!-- Gradients -->
+        <div class="gradient-left"></div>
+        <div class="gradient-bottom"></div>
+
+        <!-- Decorative -->
+        <div class="accent-line"></div>
+
+        <!-- Center Character -->
+        <div class="character-center" id="charMain">
+            <div class="character-placeholder">
+                上传 主角 人物图<br><br>全身或半身照<br>建议：PNG透明背景<br><br>人物会居中显示
+            </div>
+        </div>
+
+        <!-- Episode Badge -->
+        <div class="episode-badge" id="episodeBadge">资本往事 EP02</div>
+
+        <!-- Main Text - Left Side -->
+        <div class="text-overlay">
+            <div class="main-title" id="mainTitleDisplay">能干是罪？</div>
+            <div class="sub-title" id="subTitleDisplay">褚时健的200亿真相</div>
+        </div>
+
+        <!-- Logo -->
+        <div class="logo">
+            <span class="logo-text">元英视角</span>
+        </div>
+    </div>
+
+    <div class="instructions">
+        <h3>📝 样式2特点</h3>
+        <ul>
+            <li><strong>单人聚焦</strong>：主角居中大图，视觉冲击力强</li>
+            <li><strong>文字在左</strong>：标题放左侧，不遮挡人物</li>
+            <li><strong>适用场景</strong>：人物故事、人物传记类内容</li>
+        </ul>
+    </div>
+
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+    <script>
+        function updateThumbnail() {
+            document.getElementById('mainTitleDisplay').textContent = document.getElementById('mainTitle').value;
+            document.getElementById('subTitleDisplay').textContent = document.getElementById('subTitle').value;
+            document.getElementById('episodeBadge').textContent = document.getElementById('episode').value;
+        }
+
+        function loadImage() {
+            const input = document.getElementById('mainImage');
+            const container = document.getElementById('charMain');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    container.innerHTML = `<img src="${e.target.result}" alt="main character">`;
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function loadBackground() {
+            const input = document.getElementById('bgImage');
+            const layer = document.getElementById('bgLayer');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    layer.style.backgroundImage = `url(${e.target.result})`;
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function downloadThumbnail() {
+            const thumbnail = document.getElementById('thumbnail');
+
+            html2canvas(thumbnail, {
+                width: 1280,
+                height: 720,
+                scale: 1,
+                useCORS: true,
+                backgroundColor: '#1a1a2e'
+            }).then(canvas => {
+                const link = document.createElement('a');
+                link.download = `thumbnail_style2_${document.getElementById('episode').value.replace(/\s/g, '_')}.png`;
+                link.href = canvas.toDataURL('image/png');
+                link.click();
+            });
+        }
+    </script>
+</body>
+
+</html>
