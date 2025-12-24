@@ -1,8 +1,9 @@
 # 褚时健EP01 分镜脚本与素材指南
 
-**脚本版本**: v8.0  
+**脚本版本**: v9.0 原声开场版  
 **视频时长**: 约55分钟  
-**创建日期**: 2024-12-24
+**创建日期**: 2024-12-24  
+**更新日期**: 2024-12-24
 
 ---
 
@@ -10,6 +11,7 @@
 
 | 来源类型 | 说明 | 版权风险 |
 |----------|------|----------|
+| **褚时健原声视频** | 采访/纪录片片段 | 中风险，合理引用<15秒 |
 | **公开历史照片** | 百度/Getty Images/Alamy | 中风险，需标注来源 |
 | **纪录片片段** | CCTV/凤凰卫视相关纪录片 | 高风险，建议少用 |
 | **新闻报道截图** | 各大媒体报道 | 中风险，需处理 |
@@ -21,23 +23,38 @@
 
 ## 二、分镜详细规划
 
-### 【开场Hook】0:00-2:30
+### 【原声引入】0:00-0:20
 
 | 时间码 | 画外音/台词 | 画面描述 | 素材来源 | AI提示词（如需） |
 |--------|-------------|----------|----------|-----------------|
-| 0:00-0:05 | "71岁，无期徒刑。" | 黑屏逐渐亮起，显示"71岁"大字，然后"无期徒刑"红字砸下 | **自制动画** | - |
-| 0:05-0:10 | "74岁，出狱。" | 铁门打开，光线照进来的剪影 | **AI生成** | "silhouette of an elderly man walking out of a prison gate into bright sunlight, dramatic lighting, cinematic, 4k" |
-| 0:10-0:15 | "84岁，成了亿万富翁。" | 金色光芒+亿万富翁文字动画 | **自制动画** | - |
-| 0:15-0:25 | "这个人叫褚时健。" | 褚时健标志性照片（戴草帽在果园） | **可查：Getty Images** 搜索"Chu Shijian" | - |
-| 0:25-0:35 | "励志吗？不。这不是励志故事。" | 画面从励志金句→打叉→"系统"二字浮现 | **自制动画** | - |
-| 0:35-1:00 | "这是一个关于系统的故事..." | 齿轮转动、系统运作的抽象画面 | **AI生成** | "abstract visualization of a bureaucratic system with gears and cogs, dark moody atmosphere, red and black color scheme, corporate machinery metaphor, 4k cinematic" |
-| 1:00-1:20 | "能干到给国家一年交200亿的税..." | 200亿数字动画+烟草税收图表 | **自制动画+图表** | - |
-| 1:20-1:40 | "被抓了。罪名：贪污1000多万。" | 手铐画面+1000万vs200亿对比图 | **AI生成** | "close-up of handcuffs on a desk with documents, dramatic lighting, crime investigation mood, realistic, 4k" |
-| 1:40-2:30 | 海外华人视角引入 | 世界地图→海外华人社区画面→镜子反射 | **通用素材 Pexels** 搜索"overseas Chinese community" | - |
+| 0:00-0:15 | **褚时健原声**："我得罪了人，我后来才晓得...高干子弟要拿烟，他没给..." | 播放褚时健采访原声视频片段，可降低亮度+加字幕 | **⚠️ 原声视频素材**（用户已有） | - |
+| 0:15-0:20 | （画面渐暗，过渡到DY解读） | 视频渐暗，黑屏过渡 | **自制过渡动画** | - |
 
 ---
 
-### 【背景铺垫】2:30-8:00
+### 【开场Hook】0:20-3:00
+
+| 时间码 | 画外音/台词 | 画面描述 | 素材来源 | AI提示词（如需） |
+|--------|-------------|----------|----------|-----------------|
+| 0:20-0:30 | "这段话，褚时健说了很多年。" | 褚时健老年照片，略带沧桑感 | **可查：Getty Images** 搜索"Chu Shijian" | - |
+| 0:30-0:40 | "但他始终没说得罪的是谁。" | 问号浮现+模糊人影 | **AI生成** | "mysterious silhouette of an unknown person in shadows, question mark floating, dark moody atmosphere, cinematic" |
+| 0:40-0:50 | "也许他知道，也许他不知道。" | 迷雾/模糊处理的画面 | **AI生成** | "foggy mysterious scene, uncertainty theme, dark atmospheric mood, abstract visualization" |
+| 0:50-1:00 | "但有一点是肯定的——在那个系统里，得罪谁不重要。" | 系统齿轮开始转动 | **AI生成** | "abstract bureaucratic system with gears starting to turn, dark red and black color scheme, ominous atmosphere" |
+| 1:00-1:10 | "重要的是，你竟然敢得罪。" | 齿轮加速+红色警告 | **自制动画** | - |
+| 1:10-1:20 | （停顿） | 黑屏2秒 | - | - |
+| 1:20-1:25 | "71岁，无期徒刑。" | 黑屏逐渐亮起，显示"71岁"大字，然后"无期徒刑"红字砸下 | **自制动画** | - |
+| 1:25-1:30 | "74岁，出狱。" | 铁门打开，光线照进来的剪影 | **AI生成** | "silhouette of an elderly man walking out of a prison gate into bright sunlight, dramatic lighting, cinematic, 4k" |
+| 1:30-1:35 | "84岁，成了亿万富翁。" | 金色光芒+亿万富翁文字动画 | **自制动画** | - |
+| 1:35-1:45 | "这个人叫褚时健。" | 褚时健标志性照片（戴草帽在果园） | **可查：Getty Images** 搜索"Chu Shijian" | - |
+| 1:45-1:55 | "励志吗？不。这不是励志故事。" | 画面从励志金句→打叉→"系统"二字浮现 | **自制动画** | - |
+| 1:55-2:10 | "这是一个关于系统的故事..." | 齿轮转动、系统运作的抽象画面 | **AI生成** | "abstract visualization of a bureaucratic system with gears and cogs, dark moody atmosphere, red and black color scheme, corporate machinery metaphor, 4k cinematic" |
+| 2:10-2:30 | "能干到给国家一年交200亿的税..." | 200亿数字动画+烟草税收图表 | **自制动画+图表** | - |
+| 2:30-2:45 | "被抓了。罪名：贪污1000多万。" | 手铐画面+1000万vs200亿对比图 | **AI生成** | "close-up of handcuffs on a desk with documents, dramatic lighting, crime investigation mood, realistic, 4k" |
+| 2:45-3:00 | 海外华人视角引入 | 世界地图→海外华人社区画面→镜子反射 | **通用素材 Pexels** 搜索"overseas Chinese community" | - |
+
+---
+
+### 【背景铺垫】3:00-8:30
 
 | 时间码 | 画外音/台词 | 画面描述 | 素材来源 | AI提示词（如需） |
 |--------|-------------|----------|----------|-----------------|
