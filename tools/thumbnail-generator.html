@@ -1160,13 +1160,318 @@
             color: #555;
             font-size: 11px;
         }
+
+        /* ===== STYLE 12: Red Black Judgment ===== */
+        .s12 {
+            background: #0a0a0a;
+        }
+
+        .s12 .char-side {
+            position: absolute;
+            bottom: 0;
+            right: -50px;
+            height: 100%;
+            width: 55%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 5;
+        }
+
+        .s12 .char-side img {
+            max-height: 100%;
+            object-fit: contain;
+            filter: grayscale(100%) contrast(1.3);
+        }
+
+        .s12 .red-line {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 12px;
+            background: #e74c3c;
+            z-index: 10;
+        }
+
+        .s12 .title {
+            position: absolute;
+            top: 50%;
+            left: 60px;
+            transform: translateY(-50%);
+            font-size: 100px;
+            font-weight: 900;
+            color: #e74c3c;
+            text-shadow: 0 0 80px rgba(231, 76, 60, 0.6);
+            max-width: 55%;
+            line-height: 1.15;
+            z-index: 10;
+        }
+
+        .s12 .subtitle {
+            position: absolute;
+            bottom: 120px;
+            left: 60px;
+            font-size: 36px;
+            color: #666;
+            z-index: 10;
+        }
+
+        .s12 .logo {
+            left: 60px;
+            transform: none;
+            background: #e74c3c;
+        }
+
+        .s12 .logo-text {
+            color: #fff;
+        }
+
+        /* ===== STYLE 13: Tiandao Quote ===== */
+        .s13 {
+            background: linear-gradient(180deg, #1a1a1a 0%, #0f0f0f 100%);
+        }
+
+        .s13 .char-back {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 95%;
+            width: 50%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 4;
+            opacity: 0.25;
+        }
+
+        .s13 .char-back img {
+            max-height: 100%;
+            object-fit: contain;
+            filter: grayscale(100%);
+        }
+
+        .s13 .quote-box {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+            max-width: 900px;
+        }
+
+        .s13 .quote-mark {
+            font-size: 120px;
+            color: #f5c518;
+            line-height: 0.5;
+            opacity: 0.5;
+        }
+
+        .s13 .quote-text {
+            font-size: 56px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.5;
+            text-shadow: 2px 2px 0 #000;
+            margin: 30px 0;
+        }
+
+        .s13 .quote-author {
+            font-size: 32px;
+            color: #f5c518;
+        }
+
+        .s13 .brand {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            font-size: 28px;
+            font-weight: 900;
+            color: #f5c518;
+            letter-spacing: 4px;
+            z-index: 10;
+        }
+
+        /* ===== STYLE 14: System Diagram ===== */
+        .s14 {
+            background: #0f0f0f;
+        }
+
+        .s14 .diagram {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            z-index: 10;
+        }
+
+        .s14 .box {
+            padding: 30px 50px;
+            border: 4px solid;
+            border-radius: 16px;
+            font-size: 48px;
+            font-weight: 900;
+            text-align: center;
+        }
+
+        .s14 .box-input {
+            border-color: #27ae60;
+            color: #27ae60;
+            background: rgba(39, 174, 96, 0.1);
+        }
+
+        .s14 .box-system {
+            border-color: #e74c3c;
+            color: #e74c3c;
+            background: rgba(231, 76, 60, 0.1);
+            padding: 50px 60px;
+        }
+
+        .s14 .box-output {
+            border-color: #3498db;
+            color: #3498db;
+            background: rgba(52, 152, 219, 0.1);
+        }
+
+        .s14 .arrow-r {
+            font-size: 60px;
+            color: #fff;
+        }
+
+        .s14 .title {
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 64px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 2px 2px 0 #000;
+            z-index: 10;
+        }
+
+        .s14 .subtitle {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 36px;
+            color: #888;
+            z-index: 10;
+        }
+
+        /* ===== STYLE 15: News Headline ===== */
+        .s15 {
+            background: #fff;
+        }
+
+        .s15 .news-header {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: #c0392b;
+            display: flex;
+            align-items: center;
+            padding: 0 40px;
+            z-index: 10;
+        }
+
+        .s15 .news-logo {
+            font-size: 32px;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 4px;
+        }
+
+        .s15 .breaking {
+            margin-left: 30px;
+            background: #f1c40f;
+            color: #000;
+            padding: 8px 20px;
+            font-weight: 900;
+            font-size: 18px;
+        }
+
+        .s15 .news-content {
+            position: absolute;
+            top: 100px;
+            left: 40px;
+            right: 40px;
+            bottom: 80px;
+            display: flex;
+            gap: 40px;
+        }
+
+        .s15 .news-photo {
+            flex: 0 0 450px;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .s15 .news-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .s15 .news-text {
+            flex: 1;
+            padding-top: 20px;
+        }
+
+        .s15 .headline {
+            font-size: 56px;
+            font-weight: 900;
+            color: #1a1a1a;
+            line-height: 1.3;
+            margin-bottom: 30px;
+        }
+
+        .s15 .subhead {
+            font-size: 28px;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .s15 .news-footer {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            padding: 0 40px;
+            border-top: 2px solid #ddd;
+        }
+
+        .s15 .ticker {
+            font-size: 20px;
+            color: #666;
+        }
+
+        .s15 .ticker span {
+            color: #c0392b;
+            font-weight: 700;
+        }
     </style>
 </head>
 
 <body>
     <div class="header">
-        <h1>📺 <span>元英视角</span> 缩略图生成器 v4</h1>
-        <span style="color:#888;font-size:12px;">11种样式</span>
+        <h1>📺 <span>元英视角</span> 缩略图生成器 v5</h1>
+        <span style="color:#888;font-size:12px;">15种样式</span>
     </div>
 
     <div class="style-grid">
@@ -1214,6 +1519,22 @@
             <h4>11. 视频帧</h4>
             <p>播放器风格</p>
         </div>
+        <div class="style-card" onclick="switchStyle(12)">
+            <h4>12. 红黑审判</h4>
+            <p>揭露真相</p>
+        </div>
+        <div class="style-card" onclick="switchStyle(13)">
+            <h4>13. 天道金句</h4>
+            <p>元英语录</p>
+        </div>
+        <div class="style-card" onclick="switchStyle(14)">
+            <h4>14. 系统图解</h4>
+            <p>流程拆解</p>
+        </div>
+        <div class="style-card" onclick="switchStyle(15)">
+            <h4>15. 新闻头条</h4>
+            <p>突发报道</p>
+        </div>
     </div>
 
     <div class="main-container">
@@ -1226,7 +1547,7 @@
         </div>
     </div>
 
-    <div class="footer">元英视角 缩略图生成器 v4.0 | 11种样式 | 频道定位：50+海外华人·真相拆解</div>
+    <div class="footer">元英视角 缩略图生成器 v5.0 | 15种样式 | 频道定位：50+海外华人·真相拆解</div>
 
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script>
@@ -1440,6 +1761,85 @@
                 template: `<div class="thumbnail-container s11" id="thumb">
                     <div class="video-frame"><div class="video-content" id="s11-main"><div class="placeholder" style="width:100%;height:100%;border:none;">视频截图</div></div><div class="play-btn"></div><div class="progress"><div class="progress-bar"></div></div><div class="time" id="s11-time">55:32</div></div>
                     <div class="bottom-bar"><div class="channel-avatar">元</div><div class="video-title" id="s11-title">褚时健：我这辈子到底图什么</div><div class="views" id="s11-views">128万次观看</div></div>
+                </div>`
+            },
+            12: {
+                name: '红黑审判',
+                controls: `
+                    <div class="control-section"><h4>内容设置</h4>
+                        <div class="control-group"><label>人物图（右侧侧脸）</label><input type="file" id="c-main" accept="image/*" onchange="loadImg('c-main','s12-main')"></div>
+                        <div class="control-group"><label>主标题（红色大字）</label><input type="text" id="c-title" value="能干是一种罪" oninput="setText('c-title','s12-title')"></div>
+                        <div class="control-group"><label>副标题</label><input type="text" id="c-sub" value="褚时健案的真相" oninput="setText('c-sub','s12-sub')"></div>
+                    </div>`,
+                template: `<div class="thumbnail-container s12" id="thumb">
+                    <div class="red-line"></div>
+                    <div class="char-side" id="s12-main"><div class="placeholder">人物侧脸</div></div>
+                    <div class="title" id="s12-title">能干是一种罪</div>
+                    <div class="subtitle" id="s12-sub">褚时健案的真相</div>
+                    <div class="logo"><span class="logo-text">元英视角</span></div>
+                </div>`
+            },
+            13: {
+                name: '天道金句',
+                controls: `
+                    <div class="control-section"><h4>内容设置</h4>
+                        <div class="control-group"><label>背景人物图</label><input type="file" id="c-main" accept="image/*" onchange="loadImg('c-main','s13-main')"></div>
+                        <div class="control-group"><label>金句</label><textarea id="c-quote" oninput="setText('c-quote','s13-quote')">透视社会依次有三个层面：技术、制度、文化。</textarea></div>
+                        <div class="control-group"><label>来源</label><input type="text" id="c-author" value="——丁元英《天道》" oninput="setText('c-author','s13-author')"></div>
+                    </div>`,
+                template: `<div class="thumbnail-container s13" id="thumb">
+                    <div class="brand">元英视角</div>
+                    <div class="char-back" id="s13-main"><div class="placeholder" style="opacity:0.3;">背景人物</div></div>
+                    <div class="quote-box">
+                        <div class="quote-mark">"</div>
+                        <div class="quote-text" id="s13-quote">透视社会依次有三个层面：技术、制度、文化。</div>
+                        <div class="quote-author" id="s13-author">——丁元英《天道》</div>
+                    </div>
+                </div>`
+            },
+            14: {
+                name: '系统图解',
+                controls: `
+                    <div class="control-section"><h4>流程设置</h4>
+                        <div class="control-group"><label>输入（绿色）</label><input type="text" id="c-in" value="200亿" oninput="setText('c-in','s14-in')"></div>
+                        <div class="control-group"><label>系统（红色）</label><input type="text" id="c-sys" value="系统" oninput="setText('c-sys','s14-sys')"></div>
+                        <div class="control-group"><label>输出（蓝色）</label><input type="text" id="c-out" value="20万" oninput="setText('c-out','s14-out')"></div>
+                    </div>
+                    <div class="control-section"><h4>标题</h4>
+                        <div class="control-group"><label>主标题</label><input type="text" id="c-title" value="问题出在哪里？" oninput="setText('c-title','s14-title')"></div>
+                        <div class="control-group"><label>副标题</label><input type="text" id="c-sub" value="褚时健案的系统拆解" oninput="setText('c-sub','s14-sub')"></div>
+                    </div>`,
+                template: `<div class="thumbnail-container s14" id="thumb">
+                    <div class="title" id="s14-title">问题出在哪里？</div>
+                    <div class="diagram">
+                        <div class="box box-input" id="s14-in">200亿</div>
+                        <div class="arrow-r">→</div>
+                        <div class="box box-system" id="s14-sys">系统</div>
+                        <div class="arrow-r">→</div>
+                        <div class="box box-output" id="s14-out">20万</div>
+                    </div>
+                    <div class="subtitle" id="s14-sub">褚时健案的系统拆解</div>
+                    <div class="logo"><span class="logo-text">元英视角</span></div>
+                </div>`
+            },
+            15: {
+                name: '新闻头条',
+                controls: `
+                    <div class="control-section"><h4>内容设置</h4>
+                        <div class="control-group"><label>新闻照片</label><input type="file" id="c-photo" accept="image/*" onchange="loadImg('c-photo','s15-photo')"></div>
+                        <div class="control-group"><label>头条标题</label><input type="text" id="c-title" value="烟草大王跌落神坛" oninput="setText('c-title','s15-title')"></div>
+                        <div class="control-group"><label>副标题</label><input type="text" id="c-sub" value="一年创造200亿税收，最终只拿20万退休金。这背后的真相是什么？" oninput="setText('c-sub','s15-sub')"></div>
+                    </div>`,
+                template: `<div class="thumbnail-container s15" id="thumb">
+                    <div class="news-header"><div class="news-logo">元英视角</div><div class="breaking">深度报道</div></div>
+                    <div class="news-content">
+                        <div class="news-photo" id="s15-photo"><div class="placeholder" style="border:none;width:100%;height:100%;">照片</div></div>
+                        <div class="news-text">
+                            <div class="headline" id="s15-title">烟草大王跌落神坛</div>
+                            <div class="subhead" id="s15-sub">一年创造200亿税收，最终只拿20万退休金。这背后的真相是什么？</div>
+                        </div>
+                    </div>
+                    <div class="news-footer"><div class="ticker"><span>资本往事</span> | 褚时健真相揭秘</div></div>
                 </div>`
             }
         };
