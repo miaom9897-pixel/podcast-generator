@@ -94,6 +94,27 @@
             transform: scale(1.02);
         }
 
+        .btn-secondary {
+            background: linear-gradient(135deg, #555, #333);
+        }
+
+        .section-title {
+            color: #f5c518;
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-title::before {
+            content: '';
+            flex: 0 0 3px;
+            height: 16px;
+            background: #f5c518;
+            border-radius: 2px;
+        }
+
         /* Thumbnail Canvas */
         .thumbnail-container {
             position: relative;
@@ -105,7 +126,19 @@
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
 
-        /* Background texture */
+        /* Background image */
+        .background-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-size: cover;
+            background-position: center;
+            opacity: 0.4;
+        }
+
+        /* Background texture (fallback) */
         .thumbnail-container::before {
             content: '';
             position: absolute;
@@ -115,6 +148,7 @@
             bottom: 0;
             background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%23333" width="100" height="100"/><circle fill="%23444" cx="50" cy="50" r="40" opacity="0.1"/></svg>');
             opacity: 0.3;
+            z-index: 0;
         }
 
         /* Character slots */
@@ -125,6 +159,7 @@
             display: flex;
             align-items: flex-end;
             justify-content: center;
+            z-index: 5;
         }
 
         .character img {
@@ -204,6 +239,7 @@
             padding: 8px 24px;
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            z-index: 10;
         }
 
         .logo-text {
@@ -224,6 +260,7 @@
             border-radius: 6px;
             font-size: 18px;
             font-weight: 700;
+            z-index: 10;
         }
 
         /* Duration badge */
@@ -237,6 +274,7 @@
             border-radius: 4px;
             font-size: 16px;
             font-weight: 700;
+            z-index: 10;
         }
 
         /* Gradient overlays */
@@ -247,6 +285,7 @@
             bottom: 0;
             width: 40%;
             background: linear-gradient(90deg, rgba(0, 0, 0, 0.3) 0%, transparent 100%);
+            z-index: 3;
         }
 
         .gradient-right {
@@ -256,6 +295,7 @@
             bottom: 0;
             width: 40%;
             background: linear-gradient(-90deg, rgba(0, 0, 0, 0.3) 0%, transparent 100%);
+            z-index: 3;
         }
 
         .gradient-bottom {
@@ -265,6 +305,17 @@
             bottom: 0;
             height: 30%;
             background: linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
+            z-index: 3;
+        }
+
+        .gradient-center {
+            position: absolute;
+            left: 25%;
+            right: 25%;
+            top: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.5) 0%, transparent 70%);
+            z-index: 4;
         }
 
         .instructions {
@@ -295,62 +346,98 @@
             border-radius: 4px;
             color: #f5c518;
         }
+
+        .fixed-badge {
+            display: inline-block;
+            background: #27ae60;
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 8px;
+        }
+
+        .variable-badge {
+            display: inline-block;
+            background: #e67e22;
+            color: #fff;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 8px;
+        }
     </style>
 </head>
 
 <body>
     <div class="controls">
-        <h2>📺 元英视角 - 缩略图生成器</h2>
+        <h2>📺 元英视角 - 缩略图生成器 v2</h2>
+
+        <!-- 固定元素 -->
+        <div class="section-title">固定元素（只需设置一次）</div>
         <div class="control-row">
             <div class="control-group">
-                <label>主标题（大字）</label>
+                <label>DY人物图 <span class="fixed-badge">固定</span></label>
+                <input type="file" id="dyImage" accept="image/*" onchange="loadImage('dy')">
+            </div>
+            <div class="control-group">
+                <label>背景图（可选）<span class="fixed-badge">固定</span></label>
+                <input type="file" id="bgImage" accept="image/*" onchange="loadBackground()">
+            </div>
+        </div>
+
+        <!-- 每期更换 -->
+        <div class="section-title">每期更换</div>
+        <div class="control-row">
+            <div class="control-group">
+                <label>主角人物图（左侧）<span class="variable-badge">每期换</span></label>
+                <input type="file" id="guestImage" accept="image/*" onchange="loadImage('guest')">
+            </div>
+            <div class="control-group">
+                <label>主标题（大字）<span class="variable-badge">每期换</span></label>
                 <input type="text" id="mainTitle" value="能干是罪？" oninput="updateThumbnail()">
             </div>
             <div class="control-group">
-                <label>副标题（黄色）</label>
+                <label>副标题（黄色）<span class="variable-badge">每期换</span></label>
                 <input type="text" id="subTitle" value="褚时健真相" oninput="updateThumbnail()">
-            </div>
-            <div class="control-group">
-                <label>期数</label>
-                <input type="text" id="episode" value="资本往事 EP02" oninput="updateThumbnail()">
             </div>
         </div>
         <div class="control-row">
             <div class="control-group">
-                <label>左侧人物（DY固定）</label>
-                <input type="file" id="leftImage" accept="image/*" onchange="loadImage('left')">
-            </div>
-            <div class="control-group">
-                <label>右侧人物（主角）</label>
-                <input type="file" id="rightImage" accept="image/*" onchange="loadImage('right')">
+                <label>期数<span class="variable-badge">每期换</span></label>
+                <input type="text" id="episode" value="资本往事 EP02" oninput="updateThumbnail()">
             </div>
             <div class="control-group">
                 <label>时长</label>
                 <input type="text" id="duration" value="55:00" oninput="updateThumbnail()">
             </div>
-        </div>
-        <div class="control-row">
-            <button class="btn" onclick="downloadThumbnail()">📥 下载缩略图 (1280x720)</button>
+            <div class="control-group" style="display: flex; align-items: flex-end;">
+                <button class="btn" onclick="downloadThumbnail()">📥 下载缩略图 (1280x720)</button>
+            </div>
         </div>
     </div>
 
     <div class="thumbnail-container" id="thumbnail">
+        <!-- Background Image -->
+        <div class="background-image" id="bgLayer"></div>
+
         <!-- Gradients -->
         <div class="gradient-left"></div>
         <div class="gradient-right"></div>
         <div class="gradient-bottom"></div>
+        <div class="gradient-center"></div>
 
-        <!-- Left Character (DY - Fixed) -->
-        <div class="character character-left" id="charLeft">
+        <!-- Left Character (Guest - Variable) -->
+        <div class="character character-left" id="charGuest">
             <div class="character-placeholder">
-                上传 DY 人物图<br>(丁元英形象)<br><br>建议：PNG透明背景
+                上传 主角 人物图<br>(本期人物)<br><br>建议：PNG透明背景
             </div>
         </div>
 
-        <!-- Right Character (Guest - Variable) -->
-        <div class="character character-right" id="charRight">
+        <!-- Right Character (DY - Fixed) -->
+        <div class="character character-right" id="charDY">
             <div class="character-placeholder">
-                上传 主角 人物图<br>(本期人物)<br><br>建议：PNG透明背景
+                上传 DY 人物图<br>(丁元英形象)<br><br>建议：PNG透明背景<br><br>⚡ 只需上传一次
             </div>
         </div>
 
@@ -375,22 +462,43 @@
     <div class="instructions">
         <h3>📝 使用说明</h3>
         <ul>
-            <li><strong>丁元英人物图</strong>：只需上传一次，之后每期复用</li>
-            <li><strong>主角人物图</strong>：每期更换，建议使用PNG透明背景</li>
-            <li><strong>主标题</strong>：核心问题或金句，如 <code>能干是罪？</code></li>
+            <li><strong>DY人物图</strong>：只需上传一次（右侧固定位置），之后每期自动复用</li>
+            <li><strong>背景图</strong>：可选，上传后固定使用，不上传则使用默认深灰背景</li>
+            <li><strong>主角人物图</strong>：每期更换（左侧位置），建议使用PNG透明背景</li>
+            <li><strong>主标题</strong>：核心问题或金句，如 <code>能干是罪？</code>，不超过6字最佳</li>
             <li><strong>副标题</strong>：人物名或补充信息，如 <code>褚时健真相</code></li>
-            <li><strong>下载</strong>：点击按钮导出1280x720像素的缩略图</li>
         </ul>
         <h3 style="margin-top: 15px;">🎨 设计要点</h3>
         <ul>
             <li>人物图建议<strong>半身照</strong>，面部清晰</li>
-            <li>使用 remove.bg 等工具去除背景</li>
-            <li>主标题不超过<strong>6个字</strong>最佳</li>
+            <li>使用 <a href="https://www.remove.bg" target="_blank" style="color: #f5c518;">remove.bg</a> 去除背景</li>
+            <li>背景图建议使用<strong>暗色调</strong>，避免喧宾夺主</li>
+        </ul>
+        <h3 style="margin-top: 15px;">💡 每期工作流</h3>
+        <ul>
+            <li>1️⃣ 上传本期主角人物图</li>
+            <li>2️⃣ 修改标题和期数</li>
+            <li>3️⃣ 点击下载</li>
+            <li>（DY和背景不用动）</li>
         </ul>
     </div>
 
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script>
+        // 存储DY图片，避免每次重新上传
+        let dyImageData = localStorage.getItem('dyImageData');
+        let bgImageData = localStorage.getItem('bgImageData');
+
+        // 页面加载时恢复保存的图片
+        window.onload = function () {
+            if (dyImageData) {
+                document.getElementById('charDY').innerHTML = `<img src="${dyImageData}" alt="DY character">`;
+            }
+            if (bgImageData) {
+                document.getElementById('bgLayer').style.backgroundImage = `url(${bgImageData})`;
+            }
+        };
+
         function updateThumbnail() {
             document.getElementById('mainTitleDisplay').textContent = document.getElementById('mainTitle').value;
             document.getElementById('subTitleDisplay').textContent = document.getElementById('subTitle').value;
@@ -398,14 +506,42 @@
             document.getElementById('durationBadge').textContent = document.getElementById('duration').value;
         }
 
-        function loadImage(side) {
-            const input = side === 'left' ? document.getElementById('leftImage') : document.getElementById('rightImage');
-            const container = side === 'left' ? document.getElementById('charLeft') : document.getElementById('charRight');
+        function loadImage(type) {
+            let input, container;
+
+            if (type === 'dy') {
+                input = document.getElementById('dyImage');
+                container = document.getElementById('charDY');
+            } else {
+                input = document.getElementById('guestImage');
+                container = document.getElementById('charGuest');
+            }
 
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function (e) {
-                    container.innerHTML = `<img src="${e.target.result}" alt="${side} character">`;
+                    container.innerHTML = `<img src="${e.target.result}" alt="${type} character">`;
+
+                    // 保存DY图片到localStorage
+                    if (type === 'dy') {
+                        dyImageData = e.target.result;
+                        localStorage.setItem('dyImageData', dyImageData);
+                    }
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function loadBackground() {
+            const input = document.getElementById('bgImage');
+            const layer = document.getElementById('bgLayer');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    layer.style.backgroundImage = `url(${e.target.result})`;
+                    bgImageData = e.target.result;
+                    localStorage.setItem('bgImageData', bgImageData);
                 };
                 reader.readAsDataURL(input.files[0]);
             }
