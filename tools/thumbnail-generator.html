@@ -311,6 +311,411 @@
             z-index: 4;
         }
 
+        /* ===== STYLE 1B: Two Person Red Black ===== */
+        .s1b {
+            background: linear-gradient(135deg, #1a0a0a 0%, #0a0a0a 50%, #1a0505 100%);
+        }
+
+        .s1b .char {
+            position: absolute;
+            bottom: 0;
+            height: 88%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 5;
+        }
+
+        .s1b .char img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            filter: grayscale(50%) contrast(1.2);
+        }
+
+        .s1b .char-l {
+            left: 0;
+            width: 34%;
+        }
+
+        .s1b .char-r {
+            right: 0;
+            width: 34%;
+        }
+
+        .s1b .text-c {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+            width: 48%;
+        }
+
+        .s1b .title {
+            font-size: 90px;
+            font-weight: 900;
+            color: #e74c3c;
+            text-shadow: 0 0 60px rgba(231, 76, 60, 0.6), 4px 4px 0 #000;
+            line-height: 1.1;
+        }
+
+        .s1b .subtitle {
+            font-size: 44px;
+            font-weight: 700;
+            color: #fff;
+            text-shadow: 2px 2px 0 #000;
+            margin-top: 8px;
+        }
+
+        .s1b .red-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, transparent, #e74c3c, transparent);
+            z-index: 10;
+        }
+
+        .s1b .red-glow-b {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, transparent, #e74c3c, transparent);
+            z-index: 10;
+        }
+
+        /* ===== STYLE 1C: Two Person Gold Frame ===== */
+        .s1c {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0f0f0f 100%);
+        }
+
+        .s1c .char {
+            position: absolute;
+            bottom: 40px;
+            height: 80%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 5;
+        }
+
+        .s1c .char img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            border: 4px solid #f5c518;
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(245, 197, 24, 0.3);
+        }
+
+        .s1c .char-l {
+            left: 40px;
+            width: 30%;
+        }
+
+        .s1c .char-r {
+            right: 40px;
+            width: 30%;
+        }
+
+        .s1c .text-c {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+            width: 40%;
+        }
+
+        .s1c .title {
+            font-size: 80px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 4px 4px 0 #000;
+            line-height: 1.1;
+        }
+
+        .s1c .subtitle {
+            font-size: 40px;
+            font-weight: 700;
+            color: #f5c518;
+            text-shadow: 2px 2px 0 #000;
+            margin-top: 8px;
+        }
+
+        .s1c .corner {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border: 4px solid #f5c518;
+            z-index: 10;
+        }
+
+        .s1c .corner-tl {
+            top: 30px;
+            left: 30px;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .s1c .corner-tr {
+            top: 30px;
+            right: 30px;
+            border-left: none;
+            border-bottom: none;
+        }
+
+        .s1c .corner-bl {
+            bottom: 30px;
+            left: 30px;
+            border-right: none;
+            border-top: none;
+        }
+
+        .s1c .corner-br {
+            bottom: 30px;
+            right: 30px;
+            border-left: none;
+            border-top: none;
+        }
+
+        /* ===== STYLE 1D: Two Person Confrontation ===== */
+        .s1d {
+            background: linear-gradient(180deg, #0f0f0f 0%, #1a1a2e 100%);
+        }
+
+        .s1d .char {
+            position: absolute;
+            bottom: 0;
+            height: 85%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 5;
+        }
+
+        .s1d .char img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+        .s1d .char-l {
+            left: 5%;
+            width: 38%;
+        }
+
+        .s1d .char-l img {
+            transform: scaleX(-1);
+        }
+
+        .s1d .char-r {
+            right: 5%;
+            width: 38%;
+        }
+
+        .s1d .vs-circle {
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 15;
+            border: 5px solid #fff;
+            box-shadow: 0 0 40px rgba(231, 76, 60, 0.5);
+        }
+
+        .s1d .vs-text {
+            font-size: 36px;
+            font-weight: 900;
+            color: #fff;
+        }
+
+        .s1d .text-b {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            z-index: 10;
+        }
+
+        .s1d .title {
+            font-size: 72px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 4px 4px 0 #000;
+        }
+
+        .s1d .sparks {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 150px;
+            color: #f5c518;
+            opacity: 0.3;
+            z-index: 3;
+        }
+
+        /* ===== STYLE 1E: Two Person Light Shadow ===== */
+        .s1e {
+            background: linear-gradient(90deg, #0a0a0a 0%, #1a1a1a 50%, #2a2a2a 100%);
+        }
+
+        .s1e .char {
+            position: absolute;
+            bottom: 0;
+            height: 88%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 5;
+        }
+
+        .s1e .char-l {
+            left: 0;
+            width: 34%;
+        }
+
+        .s1e .char-l img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            filter: brightness(0.4) grayscale(100%);
+        }
+
+        .s1e .char-r {
+            right: 0;
+            width: 34%;
+        }
+
+        .s1e .char-r img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            filter: brightness(1.1) contrast(1.1);
+        }
+
+        .s1e .text-c {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+            width: 48%;
+        }
+
+        .s1e .title {
+            font-size: 90px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 4px 4px 0 #000;
+            line-height: 1.1;
+        }
+
+        .s1e .subtitle {
+            font-size: 44px;
+            font-weight: 700;
+            color: #f5c518;
+            text-shadow: 2px 2px 0 #000;
+            margin-top: 8px;
+        }
+
+        .s1e .spotlight {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50%;
+            height: 100%;
+            background: radial-gradient(ellipse at 80% 30%, rgba(255, 255, 255, 0.1) 0%, transparent 60%);
+            z-index: 3;
+        }
+
+        /* ===== STYLE 1F: Two Person Split Line ===== */
+        .s1f {
+            background: #0f0f0f;
+        }
+
+        .s1f .char {
+            position: absolute;
+            bottom: 0;
+            height: 88%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 5;
+        }
+
+        .s1f .char img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            filter: grayscale(30%) contrast(1.1);
+        }
+
+        .s1f .char-l {
+            left: 0;
+            width: 32%;
+        }
+
+        .s1f .char-r {
+            right: 0;
+            width: 32%;
+        }
+
+        .s1f .split-line {
+            position: absolute;
+            top: 80px;
+            bottom: 80px;
+            left: 50%;
+            width: 4px;
+            background: linear-gradient(180deg, transparent, #f5c518, #f5c518, transparent);
+            z-index: 10;
+            transform: translateX(-50%);
+        }
+
+        .s1f .text-c {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+            width: 36%;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 30px;
+            border-left: 4px solid #f5c518;
+            border-right: 4px solid #f5c518;
+        }
+
+        .s1f .title {
+            font-size: 72px;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1.2;
+        }
+
+        .s1f .subtitle {
+            font-size: 36px;
+            font-weight: 700;
+            color: #f5c518;
+            margin-top: 10px;
+        }
+
         /* ===== STYLE 2: Single Focus ===== */
         .s2 {
             background: linear-gradient(135deg, #1a1a2e, #0f3460);
@@ -1470,14 +1875,34 @@
 
 <body>
     <div class="header">
-        <h1>📺 <span>元英视角</span> 缩略图生成器 v5</h1>
-        <span style="color:#888;font-size:12px;">15种样式</span>
+        <h1>📺 <span>元英视角</span> 缩略图生成器 v6</h1>
+        <span style="color:#888;font-size:12px;">20种样式</span>
     </div>
 
     <div class="style-grid">
         <div class="style-card active" onclick="switchStyle(1)">
-            <h4>1. 双人对话</h4>
+            <h4>1A. 双人经典</h4>
             <p>DY + 主角</p>
+        </div>
+        <div class="style-card" onclick="switchStyle('1b')">
+            <h4>1B. 双人红黑</h4>
+            <p>冲击力强</p>
+        </div>
+        <div class="style-card" onclick="switchStyle('1c')">
+            <h4>1C. 双人金框</h4>
+            <p>高级感</p>
+        </div>
+        <div class="style-card" onclick="switchStyle('1d')">
+            <h4>1D. 双人对峙</h4>
+            <p>冲突感</p>
+        </div>
+        <div class="style-card" onclick="switchStyle('1e')">
+            <h4>1E. 双人光影</h4>
+            <p>突出DY</p>
+        </div>
+        <div class="style-card" onclick="switchStyle('1f')">
+            <h4>1F. 双人分割</h4>
+            <p>现代感</p>
         </div>
         <div class="style-card" onclick="switchStyle(2)">
             <h4>2. 单人聚焦</h4>
@@ -1547,7 +1972,7 @@
         </div>
     </div>
 
-    <div class="footer">元英视角 缩略图生成器 v5.0 | 15种样式 | 频道定位：50+海外华人·真相拆解</div>
+    <div class="footer">元英视角 缩略图生成器 v6.0 | 20种样式（6种双人+14种其他）| 频道定位：50+海外华人·真相拆解</div>
 
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script>
@@ -1572,6 +1997,103 @@
                     <div class="char char-r" id="s1-dy"><div class="placeholder">DY</div></div>
                     <div class="episode-badge" id="s1-ep">资本往事 EP02</div>
                     <div class="text-c"><div class="title" id="s1-title">能干是罪？</div><div class="subtitle" id="s1-sub">褚时健真相</div></div>
+                    <div class="logo"><span class="logo-text">元英视角</span></div>
+                </div>`
+            },
+            '1b': {
+                name: '双人红黑',
+                controls: `
+                    <div class="control-section"><h4>人物图片</h4>
+                        <div class="control-group"><label>主角人物图（左侧）</label><input type="file" id="c-guest" accept="image/*" onchange="loadImg('c-guest','s1b-guest')"></div>
+                        <div class="control-group"><label>DY人物图（右侧）</label><input type="file" id="c-dy" accept="image/*" onchange="loadImg('c-dy','s1b-dy')"></div>
+                    </div>
+                    <div class="control-section"><h4>文字内容</h4>
+                        <div class="control-group"><label>主标题（红色）</label><input type="text" id="c-title" value="能干是罪？" oninput="setText('c-title','s1b-title')"></div>
+                        <div class="control-group"><label>副标题（白色）</label><input type="text" id="c-sub" value="褚时健真相" oninput="setText('c-sub','s1b-sub')"></div>
+                    </div>`,
+                template: `<div class="thumbnail-container s1b" id="thumb">
+                    <div class="red-glow"></div>
+                    <div class="red-glow-b"></div>
+                    <div class="char char-l" id="s1b-guest"><div class="placeholder">主角</div></div>
+                    <div class="char char-r" id="s1b-dy"><div class="placeholder">DY</div></div>
+                    <div class="text-c"><div class="title" id="s1b-title">能干是罪？</div><div class="subtitle" id="s1b-sub">褚时健真相</div></div>
+                    <div class="logo"><span class="logo-text">元英视角</span></div>
+                </div>`
+            },
+            '1c': {
+                name: '双人金框',
+                controls: `
+                    <div class="control-section"><h4>人物图片</h4>
+                        <div class="control-group"><label>主角人物图（左侧）</label><input type="file" id="c-guest" accept="image/*" onchange="loadImg('c-guest','s1c-guest')"></div>
+                        <div class="control-group"><label>DY人物图（右侧）</label><input type="file" id="c-dy" accept="image/*" onchange="loadImg('c-dy','s1c-dy')"></div>
+                    </div>
+                    <div class="control-section"><h4>文字内容</h4>
+                        <div class="control-group"><label>主标题</label><input type="text" id="c-title" value="能干是罪？" oninput="setText('c-title','s1c-title')"></div>
+                        <div class="control-group"><label>副标题</label><input type="text" id="c-sub" value="褚时健真相" oninput="setText('c-sub','s1c-sub')"></div>
+                    </div>`,
+                template: `<div class="thumbnail-container s1c" id="thumb">
+                    <div class="corner corner-tl"></div><div class="corner corner-tr"></div>
+                    <div class="corner corner-bl"></div><div class="corner corner-br"></div>
+                    <div class="char char-l" id="s1c-guest"><div class="placeholder">主角</div></div>
+                    <div class="char char-r" id="s1c-dy"><div class="placeholder">DY</div></div>
+                    <div class="text-c"><div class="title" id="s1c-title">能干是罪？</div><div class="subtitle" id="s1c-sub">褚时健真相</div></div>
+                    <div class="logo"><span class="logo-text">元英视角</span></div>
+                </div>`
+            },
+            '1d': {
+                name: '双人对峙',
+                controls: `
+                    <div class="control-section"><h4>人物图片</h4>
+                        <div class="control-group"><label>主角人物图（左侧，会水平翻转）</label><input type="file" id="c-guest" accept="image/*" onchange="loadImg('c-guest','s1d-guest')"></div>
+                        <div class="control-group"><label>DY人物图（右侧）</label><input type="file" id="c-dy" accept="image/*" onchange="loadImg('c-dy','s1d-dy')"></div>
+                    </div>
+                    <div class="control-section"><h4>文字内容</h4>
+                        <div class="control-group"><label>主标题</label><input type="text" id="c-title" value="谁对谁错？" oninput="setText('c-title','s1d-title')"></div>
+                    </div>`,
+                template: `<div class="thumbnail-container s1d" id="thumb">
+                    <div class="sparks">⚡</div>
+                    <div class="char char-l" id="s1d-guest"><div class="placeholder">主角</div></div>
+                    <div class="char char-r" id="s1d-dy"><div class="placeholder">DY</div></div>
+                    <div class="vs-circle"><span class="vs-text">VS</span></div>
+                    <div class="text-b"><div class="title" id="s1d-title">谁对谁错？</div></div>
+                    <div class="logo"><span class="logo-text">元英视角</span></div>
+                </div>`
+            },
+            '1e': {
+                name: '双人光影',
+                controls: `
+                    <div class="control-section"><h4>人物图片</h4>
+                        <div class="control-group"><label>主角人物图（左侧，暗化）</label><input type="file" id="c-guest" accept="image/*" onchange="loadImg('c-guest','s1e-guest')"></div>
+                        <div class="control-group"><label>DY人物图（右侧，高亮）</label><input type="file" id="c-dy" accept="image/*" onchange="loadImg('c-dy','s1e-dy')"></div>
+                    </div>
+                    <div class="control-section"><h4>文字内容</h4>
+                        <div class="control-group"><label>主标题</label><input type="text" id="c-title" value="能干是罪？" oninput="setText('c-title','s1e-title')"></div>
+                        <div class="control-group"><label>副标题</label><input type="text" id="c-sub" value="褚时健真相" oninput="setText('c-sub','s1e-sub')"></div>
+                    </div>`,
+                template: `<div class="thumbnail-container s1e" id="thumb">
+                    <div class="spotlight"></div>
+                    <div class="char char-l" id="s1e-guest"><div class="placeholder">主角(暗)</div></div>
+                    <div class="char char-r" id="s1e-dy"><div class="placeholder">DY(亮)</div></div>
+                    <div class="text-c"><div class="title" id="s1e-title">能干是罪？</div><div class="subtitle" id="s1e-sub">褚时健真相</div></div>
+                    <div class="logo"><span class="logo-text">元英视角</span></div>
+                </div>`
+            },
+            '1f': {
+                name: '双人分割',
+                controls: `
+                    <div class="control-section"><h4>人物图片</h4>
+                        <div class="control-group"><label>主角人物图（左侧）</label><input type="file" id="c-guest" accept="image/*" onchange="loadImg('c-guest','s1f-guest')"></div>
+                        <div class="control-group"><label>DY人物图（右侧）</label><input type="file" id="c-dy" accept="image/*" onchange="loadImg('c-dy','s1f-dy')"></div>
+                    </div>
+                    <div class="control-section"><h4>文字内容</h4>
+                        <div class="control-group"><label>主标题</label><input type="text" id="c-title" value="能干是罪？" oninput="setText('c-title','s1f-title')"></div>
+                        <div class="control-group"><label>副标题</label><input type="text" id="c-sub" value="褚时健真相" oninput="setText('c-sub','s1f-sub')"></div>
+                    </div>`,
+                template: `<div class="thumbnail-container s1f" id="thumb">
+                    <div class="split-line"></div>
+                    <div class="char char-l" id="s1f-guest"><div class="placeholder">主角</div></div>
+                    <div class="char char-r" id="s1f-dy"><div class="placeholder">DY</div></div>
+                    <div class="text-c"><div class="title" id="s1f-title">能干是罪？</div><div class="subtitle" id="s1f-sub">褚时健真相</div></div>
                     <div class="logo"><span class="logo-text">元英视角</span></div>
                 </div>`
             },
