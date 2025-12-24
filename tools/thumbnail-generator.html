@@ -4,8 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>元英视角 - 缩略图生成器</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>元英视角 - 缩略图生成器 v4</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&family=Ma+Shan+Zheng&display=swap"
+        rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -20,10 +22,9 @@
             color: #fff;
         }
 
-        /* Header */
         .header {
             background: rgba(0, 0, 0, 0.5);
-            padding: 20px 40px;
+            padding: 15px 30px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -31,145 +32,130 @@
         }
 
         .header h1 {
-            font-size: 24px;
-            font-weight: 700;
+            font-size: 20px;
         }
 
         .header h1 span {
             color: #f5c518;
         }
 
-        /* Style Tabs */
-        .style-tabs {
-            display: flex;
-            justify-content: center;
+        /* Style Grid */
+        .style-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 10px;
-            padding: 30px 20px;
+            padding: 20px;
             background: rgba(0, 0, 0, 0.3);
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .style-tab {
-            padding: 15px 30px;
+        .style-card {
+            padding: 12px;
             border: 2px solid #333;
-            border-radius: 12px;
+            border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.03);
             text-align: center;
         }
 
-        .style-tab:hover {
+        .style-card:hover {
             border-color: #555;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
         }
 
-        .style-tab.active {
+        .style-card.active {
             border-color: #f5c518;
             background: rgba(245, 197, 24, 0.1);
         }
 
-        .style-tab h3 {
-            font-size: 16px;
-            margin-bottom: 5px;
+        .style-card h4 {
+            font-size: 13px;
+            margin-bottom: 4px;
         }
 
-        .style-tab p {
-            font-size: 12px;
+        .style-card p {
+            font-size: 11px;
             color: #888;
         }
 
-        /* Main Container */
         .main-container {
             display: flex;
-            gap: 30px;
-            padding: 30px;
-            max-width: 1600px;
+            gap: 25px;
+            padding: 25px;
+            max-width: 1500px;
             margin: 0 auto;
         }
 
-        /* Controls Panel */
         .controls-panel {
-            flex: 0 0 350px;
+            flex: 0 0 320px;
             background: rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            padding: 25px;
+            border-radius: 14px;
+            padding: 20px;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            max-height: 600px;
+            overflow-y: auto;
         }
 
         .control-section {
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .control-section h4 {
             color: #f5c518;
-            font-size: 14px;
-            margin-bottom: 15px;
+            font-size: 13px;
+            margin-bottom: 12px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
         }
 
         .control-section h4::before {
             content: '';
             width: 3px;
-            height: 14px;
+            height: 12px;
             background: #f5c518;
             border-radius: 2px;
         }
 
         .control-group {
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .control-group label {
             display: block;
             color: #aaa;
-            font-size: 13px;
-            margin-bottom: 6px;
+            font-size: 12px;
+            margin-bottom: 5px;
         }
 
         .control-group input[type="text"],
-        .control-group input[type="file"] {
+        .control-group input[type="file"],
+        .control-group textarea {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             border: 1px solid #333;
-            border-radius: 8px;
+            border-radius: 6px;
             background: rgba(0, 0, 0, 0.3);
             color: #fff;
-            font-size: 14px;
-            transition: border-color 0.3s;
+            font-size: 13px;
         }
 
-        .control-group input[type="text"]:focus {
-            outline: none;
-            border-color: #f5c518;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 10px;
-            margin-left: 8px;
-        }
-
-        .badge-fixed {
-            background: #27ae60;
-        }
-
-        .badge-variable {
-            background: #e67e22;
+        .control-group textarea {
+            min-height: 60px;
+            resize: vertical;
         }
 
         .btn {
             width: 100%;
-            padding: 15px;
+            padding: 14px;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 700;
-            transition: transform 0.2s, box-shadow 0.2s;
+            transition: transform 0.2s;
         }
 
         .btn:hover {
@@ -179,14 +165,8 @@
         .btn-primary {
             background: linear-gradient(135deg, #e74c3c, #c0392b);
             color: #fff;
-            box-shadow: 0 4px 20px rgba(231, 76, 60, 0.3);
         }
 
-        .btn-primary:hover {
-            box-shadow: 0 6px 25px rgba(231, 76, 60, 0.4);
-        }
-
-        /* Preview Panel */
         .preview-panel {
             flex: 1;
             display: flex;
@@ -196,663 +176,1315 @@
 
         .preview-label {
             color: #888;
-            font-size: 14px;
-            margin-bottom: 15px;
+            font-size: 13px;
+            margin-bottom: 12px;
         }
 
-        /* Thumbnail Containers */
+        /* Thumbnail Base */
         .thumbnail-container {
             position: relative;
             width: 1280px;
             height: 720px;
             overflow: hidden;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            transform: scale(0.7);
+            border-radius: 10px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.5);
+            transform: scale(0.65);
             transform-origin: top center;
         }
 
-        /* ========== STYLE 1: Two Person ========== */
-        .style-1 {
-            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+        .hidden {
+            display: none !important;
         }
 
-        .style-1 .bg-layer {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-size: cover;
-            background-position: center;
-            opacity: 0.4;
-        }
-
-        .style-1 .gradient-left,
-        .style-1 .gradient-right {
-            position: absolute;
-            top: 0;
-            bottom: 0;
-            width: 40%;
-            z-index: 3;
-        }
-
-        .style-1 .gradient-left {
-            left: 0;
-            background: linear-gradient(90deg, rgba(0, 0, 0, 0.3) 0%, transparent 100%);
-        }
-
-        .style-1 .gradient-right {
-            right: 0;
-            background: linear-gradient(-90deg, rgba(0, 0, 0, 0.3) 0%, transparent 100%);
-        }
-
-        .style-1 .gradient-bottom {
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            height: 30%;
-            background: linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
-            z-index: 3;
-        }
-
-        .style-1 .gradient-center {
-            position: absolute;
-            left: 25%;
-            right: 25%;
-            top: 0;
-            bottom: 0;
-            background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.5) 0%, transparent 70%);
-            z-index: 4;
-        }
-
-        .style-1 .character {
-            position: absolute;
-            bottom: 0;
-            height: 90%;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            z-index: 5;
-        }
-
-        .style-1 .character img {
-            max-height: 100%;
-            max-width: 100%;
-            object-fit: contain;
-            filter: grayscale(30%) contrast(1.1);
-        }
-
-        .style-1 .char-left {
-            left: 0;
-            width: 35%;
-        }
-
-        .style-1 .char-right {
-            right: 0;
-            width: 35%;
-        }
-
-        .style-1 .text-overlay {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            z-index: 10;
-            width: 50%;
-        }
-
-        .style-1 .main-title {
-            font-size: 96px;
-            font-weight: 900;
-            color: #fff;
-            text-shadow: 4px 4px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 0 4px 20px rgba(0, 0, 0, 0.8);
-            line-height: 1.1;
-            margin-bottom: 10px;
-        }
-
-        .style-1 .sub-title {
-            font-size: 48px;
-            font-weight: 700;
-            color: #f5c518;
-            text-shadow: 2px 2px 0 #000, 0 4px 15px rgba(0, 0, 0, 0.8);
-        }
-
-        /* ========== STYLE 2: Single Focus ========== */
-        .style-2 {
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-        }
-
-        .style-2 .gradient-left {
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 50%;
-            background: linear-gradient(90deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
-            z-index: 3;
-        }
-
-        .style-2 .gradient-bottom {
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            height: 40%;
-            background: linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0%, transparent 100%);
-            z-index: 3;
-        }
-
-        .style-2 .character-center {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            height: 100%;
-            width: 60%;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            z-index: 5;
-        }
-
-        .style-2 .character-center img {
-            max-height: 100%;
-            max-width: 100%;
-            object-fit: contain;
-            filter: contrast(1.1) brightness(0.9);
-        }
-
-        .style-2 .text-overlay {
-            position: absolute;
-            top: 50%;
-            left: 60px;
-            transform: translateY(-50%);
-            text-align: left;
-            z-index: 10;
-            max-width: 45%;
-        }
-
-        .style-2 .main-title {
-            font-size: 88px;
-            font-weight: 900;
-            color: #fff;
-            text-shadow: 4px 4px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 0 4px 30px rgba(0, 0, 0, 0.9);
-            line-height: 1.1;
-            margin-bottom: 15px;
-        }
-
-        .style-2 .sub-title {
-            font-size: 42px;
-            font-weight: 700;
-            color: #f5c518;
-            text-shadow: 2px 2px 0 #000, 0 4px 20px rgba(0, 0, 0, 0.9);
-        }
-
-        .style-2 .accent-line {
-            position: absolute;
-            top: 30px;
-            right: 30px;
-            width: 100px;
-            height: 4px;
-            background: linear-gradient(90deg, #f5c518, #e74c3c);
-            border-radius: 2px;
-            z-index: 10;
-        }
-
-        /* ========== STYLE 3: Number Impact ========== */
-        .style-3 {
-            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
-        }
-
-        .style-3 .gradient-right {
-            position: absolute;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            width: 60%;
-            background: linear-gradient(-90deg, transparent 0%, rgba(0, 0, 0, 0.9) 100%);
-            z-index: 3;
-        }
-
-        .style-3 .character-right {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            height: 95%;
-            width: 50%;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            z-index: 5;
-        }
-
-        .style-3 .character-right img {
-            max-height: 100%;
-            max-width: 100%;
-            object-fit: contain;
-            filter: grayscale(60%) contrast(1.2);
-        }
-
-        .style-3 .big-number {
-            position: absolute;
-            top: 80px;
-            left: 60px;
-            z-index: 10;
-        }
-
-        .style-3 .number-value {
-            font-size: 180px;
-            font-weight: 900;
-            color: #e74c3c;
-            text-shadow: 0 0 60px rgba(231, 76, 60, 0.5);
-            line-height: 1;
-        }
-
-        .style-3 .number-unit {
-            font-size: 72px;
-            font-weight: 900;
-            color: #e74c3c;
-            vertical-align: top;
-        }
-
-        .style-3 .contrast-section {
-            position: absolute;
-            top: 280px;
-            left: 60px;
-            z-index: 10;
-        }
-
-        .style-3 .arrow {
-            font-size: 48px;
-            color: #fff;
-            margin: 0 20px;
-        }
-
-        .style-3 .small-number {
-            font-size: 120px;
-            font-weight: 900;
-            color: #27ae60;
-            text-shadow: 0 0 40px rgba(39, 174, 96, 0.4);
-        }
-
-        .style-3 .small-unit {
-            font-size: 48px;
-            font-weight: 900;
-            color: #27ae60;
-        }
-
-        .style-3 .question {
-            position: absolute;
-            bottom: 120px;
-            left: 60px;
-            z-index: 10;
-        }
-
-        .style-3 .question-text {
-            font-size: 64px;
-            font-weight: 900;
-            color: #fff;
-            text-shadow: 4px 4px 0 #000;
-        }
-
-        /* Common Elements */
+        /* Common */
         .logo {
             position: absolute;
-            bottom: 30px;
+            bottom: 25px;
             left: 50%;
             transform: translateX(-50%);
             background: rgba(0, 0, 0, 0.6);
-            padding: 8px 24px;
-            border-radius: 20px;
+            padding: 6px 20px;
+            border-radius: 16px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             z-index: 10;
         }
 
-        .style-2 .logo,
-        .style-3 .logo {
-            left: 60px;
-            transform: none;
-        }
-
         .logo-text {
             color: #fff;
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 700;
             letter-spacing: 2px;
         }
 
         .episode-badge {
             position: absolute;
-            top: 30px;
-            left: 30px;
+            top: 25px;
+            left: 25px;
             background: #e74c3c;
             color: #fff;
-            padding: 8px 16px;
-            border-radius: 6px;
-            font-size: 18px;
+            padding: 6px 14px;
+            border-radius: 5px;
+            font-size: 16px;
             font-weight: 700;
             z-index: 10;
         }
 
-        .style-3 .episode-badge {
-            left: auto;
-            right: 30px;
-            background: rgba(0, 0, 0, 0.8);
-        }
-
         .placeholder {
-            width: 300px;
-            height: 450px;
-            background: rgba(255, 255, 255, 0.03);
+            width: 280px;
+            height: 420px;
+            background: rgba(255, 255, 255, 0.02);
             border: 2px dashed #333;
-            border-radius: 12px;
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #555;
-            font-size: 14px;
+            color: #444;
+            font-size: 13px;
             text-align: center;
-            padding: 20px;
         }
 
-        .style-2 .placeholder {
+        /* ===== STYLE 1: Two Person ===== */
+        .s1 {
+            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+        }
+
+        .s1 .char {
+            position: absolute;
+            bottom: 0;
+            height: 88%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 5;
+        }
+
+        .s1 .char img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            filter: grayscale(30%) contrast(1.1);
+        }
+
+        .s1 .char-l {
+            left: 0;
+            width: 34%;
+        }
+
+        .s1 .char-r {
+            right: 0;
+            width: 34%;
+        }
+
+        .s1 .text-c {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 10;
+            width: 48%;
+        }
+
+        .s1 .title {
+            font-size: 90px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 4px 4px 0 #000;
+            line-height: 1.1;
+        }
+
+        .s1 .subtitle {
+            font-size: 44px;
+            font-weight: 700;
+            color: #f5c518;
+            text-shadow: 2px 2px 0 #000;
+            margin-top: 8px;
+        }
+
+        .s1 .grad-c {
+            position: absolute;
+            left: 22%;
+            right: 22%;
+            top: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse, rgba(0, 0, 0, 0.5), transparent 70%);
+            z-index: 4;
+        }
+
+        /* ===== STYLE 2: Single Focus ===== */
+        .s2 {
+            background: linear-gradient(135deg, #1a1a2e, #0f3460);
+        }
+
+        .s2 .char-c {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 100%;
+            width: 55%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 5;
+        }
+
+        .s2 .char-c img {
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .s2 .text-l {
+            position: absolute;
+            top: 50%;
+            left: 50px;
+            transform: translateY(-50%);
+            text-align: left;
+            z-index: 10;
+            max-width: 42%;
+        }
+
+        .s2 .title {
+            font-size: 82px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 4px 4px 0 #000;
+            line-height: 1.1;
+        }
+
+        .s2 .subtitle {
+            font-size: 40px;
+            font-weight: 700;
+            color: #f5c518;
+            text-shadow: 2px 2px 0 #000;
+            margin-top: 12px;
+        }
+
+        .s2 .grad-l {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 48%;
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.8), transparent);
+            z-index: 3;
+        }
+
+        .s2 .logo {
+            left: 50px;
+            transform: none;
+        }
+
+        /* ===== STYLE 3: Number Impact ===== */
+        .s3 {
+            background: #0f0f0f;
+        }
+
+        .s3 .char-r {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            height: 94%;
+            width: 48%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 5;
+        }
+
+        .s3 .char-r img {
+            max-height: 100%;
+            object-fit: contain;
+            filter: grayscale(60%) contrast(1.2);
+        }
+
+        .s3 .big-num {
+            position: absolute;
+            top: 70px;
+            left: 50px;
+            z-index: 10;
+        }
+
+        .s3 .num-v {
+            font-size: 170px;
+            font-weight: 900;
+            color: #e74c3c;
+            text-shadow: 0 0 50px rgba(231, 76, 60, 0.5);
+            line-height: 1;
+        }
+
+        .s3 .num-u {
+            font-size: 68px;
+            font-weight: 900;
+            color: #e74c3c;
+            vertical-align: top;
+        }
+
+        .s3 .contrast {
+            position: absolute;
+            top: 260px;
+            left: 50px;
+            z-index: 10;
+        }
+
+        .s3 .arrow {
+            font-size: 44px;
+            color: #fff;
+            margin: 0 16px;
+        }
+
+        .s3 .sm-num {
+            font-size: 110px;
+            font-weight: 900;
+            color: #27ae60;
+            text-shadow: 0 0 35px rgba(39, 174, 96, 0.4);
+        }
+
+        .s3 .sm-u {
+            font-size: 44px;
+            font-weight: 900;
+            color: #27ae60;
+        }
+
+        .s3 .question {
+            position: absolute;
+            bottom: 110px;
+            left: 50px;
+            z-index: 10;
+        }
+
+        .s3 .q-text {
+            font-size: 58px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 4px 4px 0 #000;
+        }
+
+        .s3 .grad-r {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 55%;
+            background: linear-gradient(-90deg, transparent, rgba(0, 0, 0, 0.9));
+            z-index: 3;
+        }
+
+        .s3 .episode-badge {
+            left: auto;
+            right: 25px;
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .s3 .logo {
+            left: 50px;
+            transform: none;
+        }
+
+        /* ===== STYLE 4: Quote Bubble ===== */
+        .s4 {
+            background: linear-gradient(135deg, #1a1a1a, #2d2d2d);
+        }
+
+        .s4 .avatar {
+            position: absolute;
+            left: 60px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 280px;
+            height: 280px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 6px solid #f5c518;
+            z-index: 10;
+        }
+
+        .s4 .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .s4 .bubble {
+            position: absolute;
+            left: 380px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #fff;
+            color: #1a1a1a;
+            padding: 40px 50px;
+            border-radius: 30px;
+            max-width: 750px;
+            z-index: 10;
+        }
+
+        .s4 .bubble::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            border: 20px solid transparent;
+            border-right-color: #fff;
+        }
+
+        .s4 .quote {
+            font-size: 48px;
+            font-weight: 900;
+            line-height: 1.4;
+        }
+
+        .s4 .author {
+            font-size: 28px;
+            color: #666;
+            margin-top: 20px;
+            text-align: right;
+        }
+
+        .s4 .logo {
+            background: #f5c518;
+        }
+
+        .s4 .logo-text {
+            color: #1a1a1a;
+        }
+
+        /* ===== STYLE 5: Timeline ===== */
+        .s5 {
+            background: linear-gradient(180deg, #1a1a1a, #0f0f0f);
+        }
+
+        .s5 .timeline {
+            position: absolute;
+            bottom: 100px;
+            left: 60px;
+            right: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            z-index: 10;
+        }
+
+        .s5 .point {
+            text-align: center;
+        }
+
+        .s5 .year {
+            font-size: 64px;
+            font-weight: 900;
+            color: #f5c518;
+        }
+
+        .s5 .event {
+            font-size: 28px;
+            color: #fff;
+            margin-top: 10px;
+            max-width: 200px;
+        }
+
+        .s5 .line {
+            position: absolute;
+            bottom: 160px;
+            left: 100px;
+            right: 100px;
+            height: 6px;
+            background: linear-gradient(90deg, #27ae60, #f5c518, #e74c3c);
+            border-radius: 3px;
+            z-index: 5;
+        }
+
+        .s5 .dots {
+            position: absolute;
+            bottom: 155px;
+            left: 100px;
+            right: 100px;
+            display: flex;
+            justify-content: space-between;
+            z-index: 10;
+        }
+
+        .s5 .dot {
+            width: 20px;
+            height: 20px;
+            background: #fff;
+            border-radius: 50%;
+        }
+
+        .s5 .char-bg {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 65%;
+            width: 40%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 4;
+            opacity: 0.3;
+        }
+
+        .s5 .char-bg img {
+            max-height: 100%;
+            object-fit: contain;
+            filter: grayscale(100%);
+        }
+
+        .s5 .title {
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 72px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 4px 4px 0 #000;
+            z-index: 10;
+        }
+
+        /* ===== STYLE 6: Archive ===== */
+        .s6 {
+            background: #f5f0e1;
+        }
+
+        .s6 .paper {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            right: 30px;
+            bottom: 30px;
+            background: #ebe5d5;
+            border: 1px solid #ccc;
+            box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.1);
+        }
+
+        .s6 .photo {
+            position: absolute;
+            top: 80px;
+            left: 80px;
             width: 400px;
-            height: 550px;
+            height: 500px;
+            background: #ddd;
+            border: 8px solid #fff;
+            box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+            transform: rotate(-3deg);
+            z-index: 5;
+            overflow: hidden;
         }
 
-        /* Hidden styles */
-        .hidden {
-            display: none !important;
+        .s6 .photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: grayscale(100%) sepia(30%);
         }
 
-        /* Info footer */
+        .s6 .stamp {
+            position: absolute;
+            top: 100px;
+            right: 120px;
+            width: 250px;
+            height: 250px;
+            border: 8px solid #c0392b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform: rotate(-15deg);
+            z-index: 10;
+        }
+
+        .s6 .stamp-text {
+            font-size: 48px;
+            font-weight: 900;
+            color: #c0392b;
+            text-align: center;
+            font-family: 'Ma Shan Zheng', cursive;
+        }
+
+        .s6 .title {
+            position: absolute;
+            bottom: 150px;
+            right: 80px;
+            font-size: 72px;
+            font-weight: 900;
+            color: #2c2c2c;
+            text-align: right;
+            max-width: 600px;
+            font-family: 'Ma Shan Zheng', cursive;
+            z-index: 10;
+        }
+
+        .s6 .classified {
+            position: absolute;
+            top: 50px;
+            right: 50px;
+            font-size: 36px;
+            color: #c0392b;
+            font-weight: 700;
+            letter-spacing: 4px;
+            z-index: 10;
+        }
+
+        .s6 .logo {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .s6 .episode-badge {
+            background: #8b4513;
+        }
+
+        /* ===== STYLE 7: Split Contrast ===== */
+        .s7 {
+            display: flex;
+        }
+
+        .s7 .half {
+            flex: 1;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .s7 .half-l {
+            background: linear-gradient(135deg, #27ae60, #1e8449);
+        }
+
+        .s7 .half-r {
+            background: linear-gradient(135deg, #2c3e50, #1a252f);
+        }
+
+        .s7 .half img {
+            position: absolute;
+            bottom: 0;
+            max-height: 90%;
+            max-width: 90%;
+            object-fit: contain;
+        }
+
+        .s7 .half-l img {
+            filter: sepia(20%) brightness(1.1);
+        }
+
+        .s7 .half-r img {
+            filter: grayscale(100%) brightness(0.7);
+        }
+
+        .s7 .label {
+            position: absolute;
+            top: 50px;
+            font-size: 48px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+            z-index: 10;
+        }
+
+        .s7 .year-label {
+            position: absolute;
+            bottom: 80px;
+            font-size: 72px;
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.3);
+            z-index: 10;
+        }
+
+        .s7 .vs {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            background: #e74c3c;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            font-weight: 900;
+            color: #fff;
+            z-index: 20;
+            border: 6px solid #fff;
+        }
+
+        .s7 .logo {
+            bottom: auto;
+            top: 25px;
+        }
+
+        .s7 .episode-badge {
+            top: auto;
+            bottom: 25px;
+        }
+
+        /* ===== STYLE 8: Mystery ===== */
+        .s8 {
+            background: radial-gradient(circle at center, #2c3e50 0%, #0f0f0f 100%);
+        }
+
+        .s8 .silhouette {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 85%;
+            width: 50%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 5;
+        }
+
+        .s8 .silhouette img {
+            max-height: 100%;
+            object-fit: contain;
+            filter: brightness(0) opacity(0.8);
+        }
+
+        .s8 .question-mark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -60%);
+            font-size: 400px;
+            font-weight: 900;
+            color: #e74c3c;
+            opacity: 0.3;
+            z-index: 4;
+        }
+
+        .s8 .title {
+            position: absolute;
+            bottom: 150px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 72px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 4px 4px 0 #000;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .s8 .subtitle {
+            position: absolute;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 36px;
+            color: #f5c518;
+            z-index: 10;
+        }
+
+        /* ===== STYLE 9: Warning ===== */
+        .s9 {
+            background: repeating-linear-gradient(45deg, #1a1a1a, #1a1a1a 20px, #222 20px, #222 40px);
+        }
+
+        .s9 .warning-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: repeating-linear-gradient(90deg, #f1c40f 0, #f1c40f 60px, #2c2c2c 60px, #2c2c2c 120px);
+            z-index: 10;
+        }
+
+        .s9 .warning-bar-b {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: repeating-linear-gradient(90deg, #2c2c2c 0, #2c2c2c 60px, #f1c40f 60px, #f1c40f 120px);
+            z-index: 10;
+        }
+
+        .s9 .char-c {
+            position: absolute;
+            bottom: 80px;
+            right: 50px;
+            height: 80%;
+            width: 40%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 5;
+        }
+
+        .s9 .char-c img {
+            max-height: 100%;
+            object-fit: contain;
+        }
+
+        .s9 .alert-box {
+            position: absolute;
+            top: 150px;
+            left: 60px;
+            background: #e74c3c;
+            padding: 20px 40px;
+            z-index: 10;
+        }
+
+        .s9 .alert-text {
+            font-size: 36px;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 8px;
+        }
+
+        .s9 .title {
+            position: absolute;
+            top: 250px;
+            left: 60px;
+            font-size: 80px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 4px 4px 0 #000;
+            max-width: 600px;
+            line-height: 1.2;
+            z-index: 10;
+        }
+
+        .s9 .logo {
+            bottom: 100px;
+        }
+
+        .s9 .episode-badge {
+            top: 100px;
+        }
+
+        /* ===== STYLE 10: Notebook ===== */
+        .s10 {
+            background: #d4c4a8;
+        }
+
+        .s10 .page {
+            position: absolute;
+            top: 40px;
+            left: 40px;
+            right: 40px;
+            bottom: 40px;
+            background: #fff;
+            box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+            background-image: repeating-linear-gradient(#fff 0, #fff 31px, #e0e0e0 31px, #e0e0e0 32px);
+        }
+
+        .s10 .margin {
+            position: absolute;
+            top: 0;
+            left: 80px;
+            bottom: 0;
+            width: 2px;
+            background: #f5a9a9;
+        }
+
+        .s10 .handwrite {
+            position: absolute;
+            top: 80px;
+            left: 120px;
+            right: 80px;
+            font-family: 'Ma Shan Zheng', cursive;
+            font-size: 64px;
+            color: #2c3e50;
+            line-height: 1.8;
+            z-index: 10;
+        }
+
+        .s10 .highlight {
+            background: linear-gradient(180deg, transparent 60%, #f1c40f 60%);
+        }
+
+        .s10 .photo-clip {
+            position: absolute;
+            bottom: 60px;
+            right: 80px;
+            width: 280px;
+            height: 350px;
+            background: #eee;
+            border: 6px solid #fff;
+            box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.2);
+            transform: rotate(5deg);
+            z-index: 10;
+            overflow: hidden;
+        }
+
+        .s10 .photo-clip img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .s10 .tape {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 30px;
+            background: rgba(255, 235, 180, 0.8);
+        }
+
+        .s10 .logo {
+            background: #2c3e50;
+        }
+
+        .s10 .episode-badge {
+            background: #2c3e50;
+        }
+
+        /* ===== STYLE 11: Video Frame ===== */
+        .s11 {
+            background: #000;
+            padding: 30px;
+        }
+
+        .s11 .video-frame {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            right: 30px;
+            bottom: 100px;
+            background: #1a1a1a;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .s11 .video-content {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .s11 .video-content img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: cover;
+        }
+
+        .s11 .play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 120px;
+            height: 120px;
+            background: rgba(231, 76, 60, 0.9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .s11 .play-btn::after {
+            content: '';
+            border: 30px solid transparent;
+            border-left: 45px solid #fff;
+            margin-left: 12px;
+        }
+
+        .s11 .progress {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: #333;
+        }
+
+        .s11 .progress-bar {
+            width: 35%;
+            height: 100%;
+            background: #e74c3c;
+        }
+
+        .s11 .time {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            font-size: 20px;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 4px 10px;
+            border-radius: 4px;
+        }
+
+        .s11 .bottom-bar {
+            position: absolute;
+            bottom: 30px;
+            left: 30px;
+            right: 30px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+        }
+
+        .s11 .channel-avatar {
+            width: 50px;
+            height: 50px;
+            background: #f5c518;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 900;
+            color: #1a1a1a;
+        }
+
+        .s11 .video-title {
+            margin-left: 15px;
+            font-size: 24px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .s11 .views {
+            margin-left: auto;
+            font-size: 18px;
+            color: #888;
+        }
+
         .footer {
             text-align: center;
-            padding: 20px;
+            padding: 15px;
             color: #555;
-            font-size: 12px;
+            font-size: 11px;
         }
     </style>
 </head>
 
 <body>
     <div class="header">
-        <h1>📺 <span>元英视角</span> 缩略图生成器</h1>
+        <h1>📺 <span>元英视角</span> 缩略图生成器 v4</h1>
+        <span style="color:#888;font-size:12px;">11种样式</span>
     </div>
 
-    <!-- Style Tabs -->
-    <div class="style-tabs">
-        <div class="style-tab active" onclick="switchStyle(1)">
-            <h3>样式1：双人对话</h3>
-            <p>DY + 主角 对谈</p>
+    <div class="style-grid">
+        <div class="style-card active" onclick="switchStyle(1)">
+            <h4>1. 双人对话</h4>
+            <p>DY + 主角</p>
         </div>
-        <div class="style-tab" onclick="switchStyle(2)">
-            <h3>样式2：单人聚焦</h3>
-            <p>人物居中大图</p>
+        <div class="style-card" onclick="switchStyle(2)">
+            <h4>2. 单人聚焦</h4>
+            <p>人物居中</p>
         </div>
-        <div class="style-tab" onclick="switchStyle(3)">
-            <h3>样式3：数字冲击</h3>
-            <p>200亿 → 20万</p>
+        <div class="style-card" onclick="switchStyle(3)">
+            <h4>3. 数字冲击</h4>
+            <p>200亿→20万</p>
+        </div>
+        <div class="style-card" onclick="switchStyle(4)">
+            <h4>4. 对话气泡</h4>
+            <p>金句引用</p>
+        </div>
+        <div class="style-card" onclick="switchStyle(5)">
+            <h4>5. 时间线</h4>
+            <p>人生起伏</p>
+        </div>
+        <div class="style-card" onclick="switchStyle(6)">
+            <h4>6. 档案风</h4>
+            <p>历史感</p>
+        </div>
+        <div class="style-card" onclick="switchStyle(7)">
+            <h4>7. 分屏对比</h4>
+            <p>命运反差</p>
+        </div>
+        <div class="style-card" onclick="switchStyle(8)">
+            <h4>8. 悬疑风</h4>
+            <p>问号剪影</p>
+        </div>
+        <div class="style-card" onclick="switchStyle(9)">
+            <h4>9. 警告风</h4>
+            <p>揭露真相</p>
+        </div>
+        <div class="style-card" onclick="switchStyle(10)">
+            <h4>10. 笔记风</h4>
+            <p>手写感</p>
+        </div>
+        <div class="style-card" onclick="switchStyle(11)">
+            <h4>11. 视频帧</h4>
+            <p>播放器风格</p>
         </div>
     </div>
 
     <div class="main-container">
-        <!-- Controls -->
-        <div class="controls-panel">
-            <!-- Style 1 Controls -->
-            <div id="controls-1">
-                <div class="control-section">
-                    <h4>固定元素</h4>
-                    <div class="control-group">
-                        <label>DY人物图（右侧）<span class="badge badge-fixed">固定</span></label>
-                        <input type="file" id="s1-dy" accept="image/*" onchange="loadImage('s1-dy', 's1-char-dy')">
-                    </div>
-                    <div class="control-group">
-                        <label>背景图（可选）</label>
-                        <input type="file" id="s1-bg" accept="image/*" onchange="loadBg('s1-bg', 's1-bg-layer')">
-                    </div>
-                </div>
-                <div class="control-section">
-                    <h4>每期更换</h4>
-                    <div class="control-group">
-                        <label>主角人物图（左侧）<span class="badge badge-variable">每期换</span></label>
-                        <input type="file" id="s1-guest" accept="image/*"
-                            onchange="loadImage('s1-guest', 's1-char-guest')">
-                    </div>
-                    <div class="control-group">
-                        <label>主标题</label>
-                        <input type="text" id="s1-title" value="能干是罪？"
-                            oninput="updateText('s1-title', 's1-main-title')">
-                    </div>
-                    <div class="control-group">
-                        <label>副标题</label>
-                        <input type="text" id="s1-subtitle" value="褚时健真相"
-                            oninput="updateText('s1-subtitle', 's1-sub-title')">
-                    </div>
-                    <div class="control-group">
-                        <label>期数</label>
-                        <input type="text" id="s1-episode" value="资本往事 EP02"
-                            oninput="updateText('s1-episode', 's1-episode-badge')">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Style 2 Controls -->
-            <div id="controls-2" class="hidden">
-                <div class="control-section">
-                    <h4>内容设置</h4>
-                    <div class="control-group">
-                        <label>主角人物图（居中）</label>
-                        <input type="file" id="s2-main" accept="image/*"
-                            onchange="loadImage('s2-main', 's2-char-main')">
-                    </div>
-                    <div class="control-group">
-                        <label>主标题</label>
-                        <input type="text" id="s2-title" value="能干是罪？"
-                            oninput="updateText('s2-title', 's2-main-title')">
-                    </div>
-                    <div class="control-group">
-                        <label>副标题</label>
-                        <input type="text" id="s2-subtitle" value="褚时健的200亿真相"
-                            oninput="updateText('s2-subtitle', 's2-sub-title')">
-                    </div>
-                    <div class="control-group">
-                        <label>期数</label>
-                        <input type="text" id="s2-episode" value="资本往事 EP02"
-                            oninput="updateText('s2-episode', 's2-episode-badge')">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Style 3 Controls -->
-            <div id="controls-3" class="hidden">
-                <div class="control-section">
-                    <h4>数字对比</h4>
-                    <div class="control-group">
-                        <label>大数字</label>
-                        <input type="text" id="s3-bignum" value="200" oninput="updateText('s3-bignum', 's3-big-num')">
-                    </div>
-                    <div class="control-group">
-                        <label>大数字单位</label>
-                        <input type="text" id="s3-bigunit" value="亿" oninput="updateText('s3-bigunit', 's3-big-unit')">
-                    </div>
-                    <div class="control-group">
-                        <label>小数字</label>
-                        <input type="text" id="s3-smallnum" value="20"
-                            oninput="updateText('s3-smallnum', 's3-small-num')">
-                    </div>
-                    <div class="control-group">
-                        <label>小数字单位</label>
-                        <input type="text" id="s3-smallunit" value="万"
-                            oninput="updateText('s3-smallunit', 's3-small-unit')">
-                    </div>
-                </div>
-                <div class="control-section">
-                    <h4>内容设置</h4>
-                    <div class="control-group">
-                        <label>问题/主标题</label>
-                        <input type="text" id="s3-question" value="为什么只拿这么少？"
-                            oninput="updateText('s3-question', 's3-question-text')">
-                    </div>
-                    <div class="control-group">
-                        <label>人物图（右侧）</label>
-                        <input type="file" id="s3-main" accept="image/*"
-                            onchange="loadImage('s3-main', 's3-char-main')">
-                    </div>
-                    <div class="control-group">
-                        <label>人物名</label>
-                        <input type="text" id="s3-episode" value="褚时健"
-                            oninput="updateText('s3-episode', 's3-episode-badge')">
-                    </div>
-                </div>
-            </div>
-
-            <button class="btn btn-primary" onclick="downloadThumbnail()">📥 下载缩略图 (1280×720)</button>
+        <div class="controls-panel" id="controls">
+            <!-- Controls will be dynamically loaded -->
         </div>
-
-        <!-- Preview -->
         <div class="preview-panel">
-            <div class="preview-label">预览 (70% 缩放)</div>
-
-            <!-- Style 1 Thumbnail -->
-            <div class="thumbnail-container style-1" id="thumbnail-1">
-                <div class="bg-layer" id="s1-bg-layer"></div>
-                <div class="gradient-left"></div>
-                <div class="gradient-right"></div>
-                <div class="gradient-bottom"></div>
-                <div class="gradient-center"></div>
-                <div class="character char-left" id="s1-char-guest">
-                    <div class="placeholder">上传主角<br>人物图</div>
-                </div>
-                <div class="character char-right" id="s1-char-dy">
-                    <div class="placeholder">上传DY<br>人物图</div>
-                </div>
-                <div class="episode-badge" id="s1-episode-badge">资本往事 EP02</div>
-                <div class="text-overlay">
-                    <div class="main-title" id="s1-main-title">能干是罪？</div>
-                    <div class="sub-title" id="s1-sub-title">褚时健真相</div>
-                </div>
-                <div class="logo"><span class="logo-text">元英视角</span></div>
-            </div>
-
-            <!-- Style 2 Thumbnail -->
-            <div class="thumbnail-container style-2 hidden" id="thumbnail-2">
-                <div class="gradient-left"></div>
-                <div class="gradient-bottom"></div>
-                <div class="accent-line"></div>
-                <div class="character-center" id="s2-char-main">
-                    <div class="placeholder">上传主角<br>人物图</div>
-                </div>
-                <div class="episode-badge" id="s2-episode-badge">资本往事 EP02</div>
-                <div class="text-overlay">
-                    <div class="main-title" id="s2-main-title">能干是罪？</div>
-                    <div class="sub-title" id="s2-sub-title">褚时健的200亿真相</div>
-                </div>
-                <div class="logo"><span class="logo-text">元英视角</span></div>
-            </div>
-
-            <!-- Style 3 Thumbnail -->
-            <div class="thumbnail-container style-3 hidden" id="thumbnail-3">
-                <div class="gradient-right"></div>
-                <div class="character-right" id="s3-char-main">
-                    <div class="placeholder">上传人物图</div>
-                </div>
-                <div class="big-number">
-                    <span class="number-value" id="s3-big-num">200</span><span class="number-unit"
-                        id="s3-big-unit">亿</span>
-                </div>
-                <div class="contrast-section">
-                    <span class="arrow">→</span>
-                    <span class="small-number" id="s3-small-num">20</span><span class="small-unit"
-                        id="s3-small-unit">万</span>
-                </div>
-                <div class="question">
-                    <span class="question-text" id="s3-question-text">为什么只拿这么少？</span>
-                </div>
-                <div class="episode-badge" id="s3-episode-badge">褚时健</div>
-                <div class="logo"><span class="logo-text">元英视角</span></div>
-            </div>
+            <div class="preview-label">预览 (65% 缩放)</div>
+            <div id="preview-area"></div>
         </div>
     </div>
 
-    <div class="footer">
-        元英视角 缩略图生成器 v3.0 | 支持3种样式 | 使用 html2canvas 导出
-    </div>
+    <div class="footer">元英视角 缩略图生成器 v4.0 | 11种样式 | 频道定位：50+海外华人·真相拆解</div>
 
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script>
         let currentStyle = 1;
 
-        function switchStyle(style) {
-            currentStyle = style;
-
-            // Update tabs
-            document.querySelectorAll('.style-tab').forEach((tab, i) => {
-                tab.classList.toggle('active', i === style - 1);
-            });
-
-            // Update controls
-            for (let i = 1; i <= 3; i++) {
-                document.getElementById(`controls-${i}`).classList.toggle('hidden', i !== style);
-                document.getElementById(`thumbnail-${i}`).classList.toggle('hidden', i !== style);
+        const styleConfigs = {
+            1: {
+                name: '双人对话',
+                controls: `
+                    <div class="control-section"><h4>固定元素</h4>
+                        <div class="control-group"><label>DY人物图（右侧）</label><input type="file" id="c-dy" accept="image/*" onchange="loadImg('c-dy','s1-dy')"></div>
+                    </div>
+                    <div class="control-section"><h4>每期更换</h4>
+                        <div class="control-group"><label>主角人物图（左侧）</label><input type="file" id="c-guest" accept="image/*" onchange="loadImg('c-guest','s1-guest')"></div>
+                        <div class="control-group"><label>主标题</label><input type="text" id="c-title" value="能干是罪？" oninput="setText('c-title','s1-title')"></div>
+                        <div class="control-group"><label>副标题</label><input type="text" id="c-sub" value="褚时健真相" oninput="setText('c-sub','s1-sub')"></div>
+                        <div class="control-group"><label>期数</label><input type="text" id="c-ep" value="资本往事 EP02" oninput="setText('c-ep','s1-ep')"></div>
+                    </div>`,
+                template: `<div class="thumbnail-container s1" id="thumb">
+                    <div class="grad-c"></div>
+                    <div class="char char-l" id="s1-guest"><div class="placeholder">主角</div></div>
+                    <div class="char char-r" id="s1-dy"><div class="placeholder">DY</div></div>
+                    <div class="episode-badge" id="s1-ep">资本往事 EP02</div>
+                    <div class="text-c"><div class="title" id="s1-title">能干是罪？</div><div class="subtitle" id="s1-sub">褚时健真相</div></div>
+                    <div class="logo"><span class="logo-text">元英视角</span></div>
+                </div>`
+            },
+            2: {
+                name: '单人聚焦',
+                controls: `
+                    <div class="control-section"><h4>内容设置</h4>
+                        <div class="control-group"><label>主角人物图</label><input type="file" id="c-main" accept="image/*" onchange="loadImg('c-main','s2-main')"></div>
+                        <div class="control-group"><label>主标题</label><input type="text" id="c-title" value="能干是罪？" oninput="setText('c-title','s2-title')"></div>
+                        <div class="control-group"><label>副标题</label><input type="text" id="c-sub" value="褚时健的200亿真相" oninput="setText('c-sub','s2-sub')"></div>
+                        <div class="control-group"><label>期数</label><input type="text" id="c-ep" value="资本往事 EP02" oninput="setText('c-ep','s2-ep')"></div>
+                    </div>`,
+                template: `<div class="thumbnail-container s2" id="thumb">
+                    <div class="grad-l"></div>
+                    <div class="char-c" id="s2-main"><div class="placeholder">主角</div></div>
+                    <div class="episode-badge" id="s2-ep">资本往事 EP02</div>
+                    <div class="text-l"><div class="title" id="s2-title">能干是罪？</div><div class="subtitle" id="s2-sub">褚时健的200亿真相</div></div>
+                    <div class="logo"><span class="logo-text">元英视角</span></div>
+                </div>`
+            },
+            3: {
+                name: '数字冲击',
+                controls: `
+                    <div class="control-section"><h4>数字对比</h4>
+                        <div class="control-group"><label>大数字</label><input type="text" id="c-big" value="200" oninput="setText('c-big','s3-big')"></div>
+                        <div class="control-group"><label>大数字单位</label><input type="text" id="c-bigu" value="亿" oninput="setText('c-bigu','s3-bigu')"></div>
+                        <div class="control-group"><label>小数字</label><input type="text" id="c-sm" value="20" oninput="setText('c-sm','s3-sm')"></div>
+                        <div class="control-group"><label>小数字单位</label><input type="text" id="c-smu" value="万" oninput="setText('c-smu','s3-smu')"></div>
+                    </div>
+                    <div class="control-section"><h4>内容</h4>
+                        <div class="control-group"><label>问题</label><input type="text" id="c-q" value="为什么只拿这么少？" oninput="setText('c-q','s3-q')"></div>
+                        <div class="control-group"><label>人物图</label><input type="file" id="c-main" accept="image/*" onchange="loadImg('c-main','s3-main')"></div>
+                        <div class="control-group"><label>人物名</label><input type="text" id="c-ep" value="褚时健" oninput="setText('c-ep','s3-ep')"></div>
+                    </div>`,
+                template: `<div class="thumbnail-container s3" id="thumb">
+                    <div class="grad-r"></div>
+                    <div class="char-r" id="s3-main"><div class="placeholder">人物</div></div>
+                    <div class="big-num"><span class="num-v" id="s3-big">200</span><span class="num-u" id="s3-bigu">亿</span></div>
+                    <div class="contrast"><span class="arrow">→</span><span class="sm-num" id="s3-sm">20</span><span class="sm-u" id="s3-smu">万</span></div>
+                    <div class="question"><span class="q-text" id="s3-q">为什么只拿这么少？</span></div>
+                    <div class="episode-badge" id="s3-ep">褚时健</div>
+                    <div class="logo"><span class="logo-text">元英视角</span></div>
+                </div>`
+            },
+            4: {
+                name: '对话气泡',
+                controls: `
+                    <div class="control-section"><h4>内容设置</h4>
+                        <div class="control-group"><label>头像图片</label><input type="file" id="c-avatar" accept="image/*" onchange="loadImg('c-avatar','s4-avatar')"></div>
+                        <div class="control-group"><label>金句</label><textarea id="c-quote" oninput="setText('c-quote','s4-quote')">透视社会依次有三个层面：技术、制度、文化。</textarea></div>
+                        <div class="control-group"><label>来源</label><input type="text" id="c-author" value="——丁元英" oninput="setText('c-author','s4-author')"></div>
+                    </div>`,
+                template: `<div class="thumbnail-container s4" id="thumb">
+                    <div class="avatar" id="s4-avatar"><div class="placeholder" style="width:100%;height:100%;border:none;border-radius:50%;">头像</div></div>
+                    <div class="bubble"><div class="quote" id="s4-quote">透视社会依次有三个层面：技术、制度、文化。</div><div class="author" id="s4-author">——丁元英</div></div>
+                    <div class="logo"><span class="logo-text">元英视角</span></div>
+                </div>`
+            },
+            5: {
+                name: '时间线',
+                controls: `
+                    <div class="control-section"><h4>标题</h4>
+                        <div class="control-group"><label>主标题</label><input type="text" id="c-title" value="褚时健的一生" oninput="setText('c-title','s5-title')"></div>
+                        <div class="control-group"><label>人物图（背景）</label><input type="file" id="c-main" accept="image/*" onchange="loadImg('c-main','s5-main')"></div>
+                    </div>
+                    <div class="control-section"><h4>时间节点</h4>
+                        <div class="control-group"><label>年份1</label><input type="text" id="c-y1" value="1979" oninput="setText('c-y1','s5-y1')"></div>
+                        <div class="control-group"><label>事件1</label><input type="text" id="c-e1" value="接手玉溪" oninput="setText('c-e1','s5-e1')"></div>
+                        <div class="control-group"><label>年份2</label><input type="text" id="c-y2" value="1995" oninput="setText('c-y2','s5-y2')"></div>
+                        <div class="control-group"><label>事件2</label><input type="text" id="c-e2" value="200亿巅峰" oninput="setText('c-e2','s5-e2')"></div>
+                        <div class="control-group"><label>年份3</label><input type="text" id="c-y3" value="1999" oninput="setText('c-y3','s5-y3')"></div>
+                        <div class="control-group"><label>事件3</label><input type="text" id="c-e3" value="无期徒刑" oninput="setText('c-e3','s5-e3')"></div>
+                    </div>`,
+                template: `<div class="thumbnail-container s5" id="thumb">
+                    <div class="char-bg" id="s5-main"><div class="placeholder" style="opacity:0.3;">人物</div></div>
+                    <div class="title" id="s5-title">褚时健的一生</div>
+                    <div class="line"></div>
+                    <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+                    <div class="timeline">
+                        <div class="point"><div class="year" id="s5-y1">1979</div><div class="event" id="s5-e1">接手玉溪</div></div>
+                        <div class="point"><div class="year" id="s5-y2">1995</div><div class="event" id="s5-e2">200亿巅峰</div></div>
+                        <div class="point"><div class="year" id="s5-y3">1999</div><div class="event" id="s5-e3">无期徒刑</div></div>
+                    </div>
+                    <div class="logo"><span class="logo-text">元英视角</span></div>
+                </div>`
+            },
+            6: {
+                name: '档案风',
+                controls: `
+                    <div class="control-section"><h4>内容设置</h4>
+                        <div class="control-group"><label>照片</label><input type="file" id="c-photo" accept="image/*" onchange="loadImg('c-photo','s6-photo')"></div>
+                        <div class="control-group"><label>印章文字</label><input type="text" id="c-stamp" value="绝密" oninput="setText('c-stamp','s6-stamp')"></div>
+                        <div class="control-group"><label>标题</label><input type="text" id="c-title" value="褚时健案卷" oninput="setText('c-title','s6-title')"></div>
+                        <div class="control-group"><label>期数</label><input type="text" id="c-ep" value="资本往事" oninput="setText('c-ep','s6-ep')"></div>
+                    </div>`,
+                template: `<div class="thumbnail-container s6" id="thumb">
+                    <div class="paper"></div>
+                    <div class="classified">机密档案</div>
+                    <div class="photo" id="s6-photo"><div class="placeholder" style="border:none;width:100%;height:100%;">照片</div></div>
+                    <div class="stamp"><div class="stamp-text" id="s6-stamp">绝密</div></div>
+                    <div class="title" id="s6-title">褚时健案卷</div>
+                    <div class="episode-badge" id="s6-ep">资本往事</div>
+                    <div class="logo"><span class="logo-text">元英视角</span></div>
+                </div>`
+            },
+            7: {
+                name: '分屏对比',
+                controls: `
+                    <div class="control-section"><h4>左侧（好时光）</h4>
+                        <div class="control-group"><label>人物图</label><input type="file" id="c-left" accept="image/*" onchange="loadImg('c-left','s7-left')"></div>
+                        <div class="control-group"><label>标签</label><input type="text" id="c-ll" value="风光时刻" oninput="setText('c-ll','s7-ll')"></div>
+                        <div class="control-group"><label>年份</label><input type="text" id="c-ly" value="1995" oninput="setText('c-ly','s7-ly')"></div>
+                    </div>
+                    <div class="control-section"><h4>右侧（落寞）</h4>
+                        <div class="control-group"><label>人物图</label><input type="file" id="c-right" accept="image/*" onchange="loadImg('c-right','s7-right')"></div>
+                        <div class="control-group"><label>标签</label><input type="text" id="c-rl" value="跌落谷底" oninput="setText('c-rl','s7-rl')"></div>
+                        <div class="control-group"><label>年份</label><input type="text" id="c-ry" value="1999" oninput="setText('c-ry','s7-ry')"></div>
+                    </div>`,
+                template: `<div class="thumbnail-container s7" id="thumb">
+                    <div class="half half-l" id="s7-left"><div class="placeholder">风光</div><div class="label" id="s7-ll">风光时刻</div><div class="year-label" id="s7-ly">1995</div></div>
+                    <div class="half half-r" id="s7-right"><div class="placeholder">落寞</div><div class="label" id="s7-rl">跌落谷底</div><div class="year-label" id="s7-ry">1999</div></div>
+                    <div class="vs">VS</div>
+                    <div class="logo"><span class="logo-text">元英视角</span></div>
+                    <div class="episode-badge">命运反差</div>
+                </div>`
+            },
+            8: {
+                name: '悬疑风',
+                controls: `
+                    <div class="control-section"><h4>内容设置</h4>
+                        <div class="control-group"><label>人物剪影图</label><input type="file" id="c-main" accept="image/*" onchange="loadImg('c-main','s8-main')"></div>
+                        <div class="control-group"><label>主标题</label><input type="text" id="c-title" value="他为什么必须死？" oninput="setText('c-title','s8-title')"></div>
+                        <div class="control-group"><label>副标题</label><input type="text" id="c-sub" value="褚时健案的真相" oninput="setText('c-sub','s8-sub')"></div>
+                    </div>`,
+                template: `<div class="thumbnail-container s8" id="thumb">
+                    <div class="question-mark">?</div>
+                    <div class="silhouette" id="s8-main"><div class="placeholder" style="filter:brightness(0);">剪影</div></div>
+                    <div class="title" id="s8-title">他为什么必须死？</div>
+                    <div class="subtitle" id="s8-sub">褚时健案的真相</div>
+                    <div class="logo"><span class="logo-text">元英视角</span></div>
+                </div>`
+            },
+            9: {
+                name: '警告风',
+                controls: `
+                    <div class="control-section"><h4>内容设置</h4>
+                        <div class="control-group"><label>人物图</label><input type="file" id="c-main" accept="image/*" onchange="loadImg('c-main','s9-main')"></div>
+                        <div class="control-group"><label>警告标签</label><input type="text" id="c-alert" value="⚠ 真相警告" oninput="setText('c-alert','s9-alert')"></div>
+                        <div class="control-group"><label>主标题</label><input type="text" id="c-title" value="他们不想让你知道的事" oninput="setText('c-title','s9-title')"></div>
+                        <div class="control-group"><label>期数</label><input type="text" id="c-ep" value="资本往事" oninput="setText('c-ep','s9-ep')"></div>
+                    </div>`,
+                template: `<div class="thumbnail-container s9" id="thumb">
+                    <div class="warning-bar"></div>
+                    <div class="warning-bar-b"></div>
+                    <div class="char-c" id="s9-main"><div class="placeholder">人物</div></div>
+                    <div class="alert-box"><div class="alert-text" id="s9-alert">⚠ 真相警告</div></div>
+                    <div class="title" id="s9-title">他们不想让你知道的事</div>
+                    <div class="episode-badge" id="s9-ep">资本往事</div>
+                    <div class="logo"><span class="logo-text">元英视角</span></div>
+                </div>`
+            },
+            10: {
+                name: '笔记风',
+                controls: `
+                    <div class="control-section"><h4>内容设置</h4>
+                        <div class="control-group"><label>照片</label><input type="file" id="c-photo" accept="image/*" onchange="loadImg('c-photo','s10-photo')"></div>
+                        <div class="control-group"><label>手写文字</label><textarea id="c-text" oninput="setHTML('c-text','s10-text')">褚时健：一个人可以创造<span class="highlight">200亿</span>的价值，却只拿<span class="highlight">20万</span>的回报。</textarea></div>
+                        <div class="control-group"><label>期数</label><input type="text" id="c-ep" value="资本往事" oninput="setText('c-ep','s10-ep')"></div>
+                    </div>`,
+                template: `<div class="thumbnail-container s10" id="thumb">
+                    <div class="page"><div class="margin"></div></div>
+                    <div class="handwrite" id="s10-text">褚时健：一个人可以创造<span class="highlight">200亿</span>的价值，却只拿<span class="highlight">20万</span>的回报。</div>
+                    <div class="photo-clip" id="s10-photo"><div class="tape"></div><div class="placeholder" style="border:none;width:100%;height:100%;">照片</div></div>
+                    <div class="episode-badge" id="s10-ep">资本往事</div>
+                    <div class="logo"><span class="logo-text">元英视角</span></div>
+                </div>`
+            },
+            11: {
+                name: '视频帧',
+                controls: `
+                    <div class="control-section"><h4>内容设置</h4>
+                        <div class="control-group"><label>视频截图</label><input type="file" id="c-main" accept="image/*" onchange="loadImg('c-main','s11-main')"></div>
+                        <div class="control-group"><label>视频标题</label><input type="text" id="c-title" value="褚时健：我这辈子到底图什么" oninput="setText('c-title','s11-title')"></div>
+                        <div class="control-group"><label>播放时长</label><input type="text" id="c-time" value="55:32" oninput="setText('c-time','s11-time')"></div>
+                        <div class="control-group"><label>观看数</label><input type="text" id="c-views" value="128万次观看" oninput="setText('c-views','s11-views')"></div>
+                    </div>`,
+                template: `<div class="thumbnail-container s11" id="thumb">
+                    <div class="video-frame"><div class="video-content" id="s11-main"><div class="placeholder" style="width:100%;height:100%;border:none;">视频截图</div></div><div class="play-btn"></div><div class="progress"><div class="progress-bar"></div></div><div class="time" id="s11-time">55:32</div></div>
+                    <div class="bottom-bar"><div class="channel-avatar">元</div><div class="video-title" id="s11-title">褚时健：我这辈子到底图什么</div><div class="views" id="s11-views">128万次观看</div></div>
+                </div>`
             }
+        };
+
+        function switchStyle(n) {
+            currentStyle = n;
+            document.querySelectorAll('.style-card').forEach((c, i) => c.classList.toggle('active', i === n - 1));
+            document.getElementById('controls').innerHTML = styleConfigs[n].controls + '<button class="btn btn-primary" onclick="download()">📥 下载缩略图</button>';
+            document.getElementById('preview-area').innerHTML = styleConfigs[n].template;
         }
 
-        function updateText(inputId, targetId) {
-            document.getElementById(targetId).textContent = document.getElementById(inputId).value;
+        function setText(inputId, targetId) {
+            const el = document.getElementById(targetId);
+            if (el) el.textContent = document.getElementById(inputId).value;
         }
 
-        function loadImage(inputId, containerId) {
+        function setHTML(inputId, targetId) {
+            const el = document.getElementById(targetId);
+            if (el) el.innerHTML = document.getElementById(inputId).value;
+        }
+
+        function loadImg(inputId, containerId) {
             const input = document.getElementById(inputId);
             const container = document.getElementById(containerId);
-
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
-                reader.onload = function (e) {
-                    container.innerHTML = `<img src="${e.target.result}" alt="character">`;
-                };
+                reader.onload = e => { container.innerHTML = `<img src="${e.target.result}">`; };
                 reader.readAsDataURL(input.files[0]);
             }
         }
 
-        function loadBg(inputId, layerId) {
-            const input = document.getElementById(inputId);
-            const layer = document.getElementById(layerId);
-
-            if (input.files && input.files[0]) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    layer.style.backgroundImage = `url(${e.target.result})`;
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        function downloadThumbnail() {
-            const thumbnail = document.getElementById(`thumbnail-${currentStyle}`);
-
-            // Temporarily reset transform for proper capture
-            thumbnail.style.transform = 'none';
-
-            html2canvas(thumbnail, {
-                width: 1280,
-                height: 720,
-                scale: 1,
-                useCORS: true,
-                backgroundColor: '#1a1a1a'
-            }).then(canvas => {
-                thumbnail.style.transform = 'scale(0.7)';
-
+        function download() {
+            const thumb = document.getElementById('thumb');
+            thumb.style.transform = 'none';
+            html2canvas(thumb, { width: 1280, height: 720, scale: 1, useCORS: true, backgroundColor: '#1a1a1a' }).then(canvas => {
+                thumb.style.transform = 'scale(0.65)';
                 const link = document.createElement('a');
-                const episode = document.getElementById(`s${currentStyle}-episode`)?.value || 'thumbnail';
-                link.download = `thumbnail_style${currentStyle}_${episode.replace(/\s/g, '_')}.png`;
+                link.download = `thumbnail_style${currentStyle}.png`;
                 link.href = canvas.toDataURL('image/png');
                 link.click();
             });
         }
+
+        // Initialize
+        switchStyle(1);
     </script>
 </body>
 
