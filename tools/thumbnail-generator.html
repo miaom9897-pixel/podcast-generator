@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>元英视角 - 缩略图模板</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@700;900&display=swap" rel="stylesheet">
+    <title>元英视角 - 缩略图生成器</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -15,119 +15,209 @@
 
         body {
             font-family: 'Noto Sans SC', sans-serif;
-            background: #1a1a1a;
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a2e 100%);
             min-height: 100vh;
+            color: #fff;
+        }
+
+        /* Header */
+        .header {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px 40px;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 20px;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        .controls {
-            background: #2a2a2a;
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            width: 100%;
-            max-width: 1280px;
+        .header h1 {
+            font-size: 24px;
+            font-weight: 700;
         }
 
-        .controls h2 {
-            color: #fff;
-            margin-bottom: 15px;
-            font-size: 18px;
+        .header h1 span {
+            color: #f5c518;
         }
 
-        .control-row {
+        /* Style Tabs */
+        .style-tabs {
             display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-bottom: 15px;
+            justify-content: center;
+            gap: 10px;
+            padding: 30px 20px;
+            background: rgba(0, 0, 0, 0.3);
         }
 
-        .control-group {
-            flex: 1;
-            min-width: 200px;
-        }
-
-        .control-group label {
-            color: #aaa;
-            display: block;
-            margin-bottom: 5px;
-            font-size: 14px;
-        }
-
-        .control-group input[type="text"],
-        .control-group input[type="file"],
-        .control-group select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #444;
-            border-radius: 6px;
-            background: #333;
-            color: #fff;
-            font-size: 14px;
-        }
-
-        .control-group input[type="color"] {
-            width: 60px;
-            height: 40px;
-            border: none;
-            border-radius: 6px;
+        .style-tab {
+            padding: 15px 30px;
+            border: 2px solid #333;
+            border-radius: 12px;
             cursor: pointer;
+            transition: all 0.3s;
+            background: rgba(255, 255, 255, 0.05);
+            text-align: center;
         }
 
-        .btn {
-            background: linear-gradient(135deg, #e74c3c, #c0392b);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            cursor: pointer;
+        .style-tab:hover {
+            border-color: #555;
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .style-tab.active {
+            border-color: #f5c518;
+            background: rgba(245, 197, 24, 0.1);
+        }
+
+        .style-tab h3 {
             font-size: 16px;
-            font-weight: bold;
-            transition: transform 0.2s;
+            margin-bottom: 5px;
         }
 
-        .btn:hover {
-            transform: scale(1.02);
+        .style-tab p {
+            font-size: 12px;
+            color: #888;
         }
 
-        .btn-secondary {
-            background: linear-gradient(135deg, #555, #333);
+        /* Main Container */
+        .main-container {
+            display: flex;
+            gap: 30px;
+            padding: 30px;
+            max-width: 1600px;
+            margin: 0 auto;
         }
 
-        .section-title {
+        /* Controls Panel */
+        .controls-panel {
+            flex: 0 0 350px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .control-section {
+            margin-bottom: 25px;
+        }
+
+        .control-section h4 {
             color: #f5c518;
             font-size: 14px;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
             display: flex;
             align-items: center;
             gap: 8px;
         }
 
-        .section-title::before {
+        .control-section h4::before {
             content: '';
-            flex: 0 0 3px;
-            height: 16px;
+            width: 3px;
+            height: 14px;
             background: #f5c518;
             border-radius: 2px;
         }
 
-        /* Thumbnail Canvas */
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        .control-group label {
+            display: block;
+            color: #aaa;
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+
+        .control-group input[type="text"],
+        .control-group input[type="file"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.3);
+            color: #fff;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        .control-group input[type="text"]:focus {
+            outline: none;
+            border-color: #f5c518;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 10px;
+            margin-left: 8px;
+        }
+
+        .badge-fixed {
+            background: #27ae60;
+        }
+
+        .badge-variable {
+            background: #e67e22;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 700;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(231, 76, 60, 0.3);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 6px 25px rgba(231, 76, 60, 0.4);
+        }
+
+        /* Preview Panel */
+        .preview-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .preview-label {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        /* Thumbnail Containers */
         .thumbnail-container {
             position: relative;
             width: 1280px;
             height: 720px;
-            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
             overflow: hidden;
-            border-radius: 8px;
+            border-radius: 12px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            transform: scale(0.7);
+            transform-origin: top center;
         }
 
-        /* Background image */
-        .background-image {
+        /* ========== STYLE 1: Two Person ========== */
+        .style-1 {
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+        }
+
+        .style-1 .bg-layer {
             position: absolute;
             top: 0;
             left: 0;
@@ -138,21 +228,46 @@
             opacity: 0.4;
         }
 
-        /* Background texture (fallback) */
-        .thumbnail-container::before {
-            content: '';
+        .style-1 .gradient-left,
+        .style-1 .gradient-right {
             position: absolute;
             top: 0;
+            bottom: 0;
+            width: 40%;
+            z-index: 3;
+        }
+
+        .style-1 .gradient-left {
+            left: 0;
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.3) 0%, transparent 100%);
+        }
+
+        .style-1 .gradient-right {
+            right: 0;
+            background: linear-gradient(-90deg, rgba(0, 0, 0, 0.3) 0%, transparent 100%);
+        }
+
+        .style-1 .gradient-bottom {
+            position: absolute;
             left: 0;
             right: 0;
             bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%23333" width="100" height="100"/><circle fill="%23444" cx="50" cy="50" r="40" opacity="0.1"/></svg>');
-            opacity: 0.3;
-            z-index: 0;
+            height: 30%;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
+            z-index: 3;
         }
 
-        /* Character slots */
-        .character {
+        .style-1 .gradient-center {
+            position: absolute;
+            left: 25%;
+            right: 25%;
+            top: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.5) 0%, transparent 70%);
+            z-index: 4;
+        }
+
+        .style-1 .character {
             position: absolute;
             bottom: 0;
             height: 90%;
@@ -162,41 +277,24 @@
             z-index: 5;
         }
 
-        .character img {
+        .style-1 .character img {
             max-height: 100%;
             max-width: 100%;
             object-fit: contain;
             filter: grayscale(30%) contrast(1.1);
         }
 
-        .character-left {
+        .style-1 .char-left {
             left: 0;
             width: 35%;
         }
 
-        .character-right {
+        .style-1 .char-right {
             right: 0;
             width: 35%;
         }
 
-        /* Placeholder for characters */
-        .character-placeholder {
-            width: 300px;
-            height: 500px;
-            background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.05) 100%);
-            border: 2px dashed #444;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #666;
-            font-size: 14px;
-            text-align: center;
-            padding: 20px;
-        }
-
-        /* Text overlay */
-        .text-overlay {
+        .style-1 .text-overlay {
             position: absolute;
             top: 50%;
             left: 50%;
@@ -206,30 +304,201 @@
             width: 50%;
         }
 
-        .main-title {
+        .style-1 .main-title {
             font-size: 96px;
             font-weight: 900;
             color: #fff;
-            text-shadow:
-                4px 4px 0 #000,
-                -2px -2px 0 #000,
-                2px -2px 0 #000,
-                -2px 2px 0 #000,
-                0 4px 20px rgba(0, 0, 0, 0.8);
+            text-shadow: 4px 4px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 0 4px 20px rgba(0, 0, 0, 0.8);
             line-height: 1.1;
             margin-bottom: 10px;
         }
 
-        .sub-title {
+        .style-1 .sub-title {
             font-size: 48px;
             font-weight: 700;
             color: #f5c518;
-            text-shadow:
-                2px 2px 0 #000,
-                0 4px 15px rgba(0, 0, 0, 0.8);
+            text-shadow: 2px 2px 0 #000, 0 4px 15px rgba(0, 0, 0, 0.8);
         }
 
-        /* Logo */
+        /* ========== STYLE 2: Single Focus ========== */
+        .style-2 {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        }
+
+        .style-2 .gradient-left {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 50%;
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+            z-index: 3;
+        }
+
+        .style-2 .gradient-bottom {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 40%;
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0.7) 0%, transparent 100%);
+            z-index: 3;
+        }
+
+        .style-2 .character-center {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 100%;
+            width: 60%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 5;
+        }
+
+        .style-2 .character-center img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            filter: contrast(1.1) brightness(0.9);
+        }
+
+        .style-2 .text-overlay {
+            position: absolute;
+            top: 50%;
+            left: 60px;
+            transform: translateY(-50%);
+            text-align: left;
+            z-index: 10;
+            max-width: 45%;
+        }
+
+        .style-2 .main-title {
+            font-size: 88px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 4px 4px 0 #000, -2px -2px 0 #000, 2px -2px 0 #000, -2px 2px 0 #000, 0 4px 30px rgba(0, 0, 0, 0.9);
+            line-height: 1.1;
+            margin-bottom: 15px;
+        }
+
+        .style-2 .sub-title {
+            font-size: 42px;
+            font-weight: 700;
+            color: #f5c518;
+            text-shadow: 2px 2px 0 #000, 0 4px 20px rgba(0, 0, 0, 0.9);
+        }
+
+        .style-2 .accent-line {
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #f5c518, #e74c3c);
+            border-radius: 2px;
+            z-index: 10;
+        }
+
+        /* ========== STYLE 3: Number Impact ========== */
+        .style-3 {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
+        }
+
+        .style-3 .gradient-right {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            width: 60%;
+            background: linear-gradient(-90deg, transparent 0%, rgba(0, 0, 0, 0.9) 100%);
+            z-index: 3;
+        }
+
+        .style-3 .character-right {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            height: 95%;
+            width: 50%;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            z-index: 5;
+        }
+
+        .style-3 .character-right img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            filter: grayscale(60%) contrast(1.2);
+        }
+
+        .style-3 .big-number {
+            position: absolute;
+            top: 80px;
+            left: 60px;
+            z-index: 10;
+        }
+
+        .style-3 .number-value {
+            font-size: 180px;
+            font-weight: 900;
+            color: #e74c3c;
+            text-shadow: 0 0 60px rgba(231, 76, 60, 0.5);
+            line-height: 1;
+        }
+
+        .style-3 .number-unit {
+            font-size: 72px;
+            font-weight: 900;
+            color: #e74c3c;
+            vertical-align: top;
+        }
+
+        .style-3 .contrast-section {
+            position: absolute;
+            top: 280px;
+            left: 60px;
+            z-index: 10;
+        }
+
+        .style-3 .arrow {
+            font-size: 48px;
+            color: #fff;
+            margin: 0 20px;
+        }
+
+        .style-3 .small-number {
+            font-size: 120px;
+            font-weight: 900;
+            color: #27ae60;
+            text-shadow: 0 0 40px rgba(39, 174, 96, 0.4);
+        }
+
+        .style-3 .small-unit {
+            font-size: 48px;
+            font-weight: 900;
+            color: #27ae60;
+        }
+
+        .style-3 .question {
+            position: absolute;
+            bottom: 120px;
+            left: 60px;
+            z-index: 10;
+        }
+
+        .style-3 .question-text {
+            font-size: 64px;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 4px 4px 0 #000;
+        }
+
+        /* Common Elements */
         .logo {
             position: absolute;
             bottom: 30px;
@@ -242,6 +511,12 @@
             z-index: 10;
         }
 
+        .style-2 .logo,
+        .style-3 .logo {
+            left: 60px;
+            transform: none;
+        }
+
         .logo-text {
             color: #fff;
             font-size: 20px;
@@ -249,7 +524,6 @@
             letter-spacing: 2px;
         }
 
-        /* Episode badge */
         .episode-badge {
             position: absolute;
             top: 30px;
@@ -263,292 +537,305 @@
             z-index: 10;
         }
 
-        /* Duration badge */
-        .duration-badge {
-            position: absolute;
-            bottom: 30px;
+        .style-3 .episode-badge {
+            left: auto;
             right: 30px;
             background: rgba(0, 0, 0, 0.8);
-            color: #fff;
-            padding: 6px 12px;
-            border-radius: 4px;
-            font-size: 16px;
-            font-weight: 700;
-            z-index: 10;
         }
 
-        /* Gradient overlays */
-        .gradient-left {
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 40%;
-            background: linear-gradient(90deg, rgba(0, 0, 0, 0.3) 0%, transparent 100%);
-            z-index: 3;
-        }
-
-        .gradient-right {
-            position: absolute;
-            right: 0;
-            top: 0;
-            bottom: 0;
-            width: 40%;
-            background: linear-gradient(-90deg, rgba(0, 0, 0, 0.3) 0%, transparent 100%);
-            z-index: 3;
-        }
-
-        .gradient-bottom {
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            height: 30%;
-            background: linear-gradient(0deg, rgba(0, 0, 0, 0.6) 0%, transparent 100%);
-            z-index: 3;
-        }
-
-        .gradient-center {
-            position: absolute;
-            left: 25%;
-            right: 25%;
-            top: 0;
-            bottom: 0;
-            background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.5) 0%, transparent 70%);
-            z-index: 4;
-        }
-
-        .instructions {
-            max-width: 1280px;
-            background: #2a2a2a;
-            padding: 20px;
+        .placeholder {
+            width: 300px;
+            height: 450px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 2px dashed #333;
             border-radius: 12px;
-            margin-top: 20px;
-            color: #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #555;
+            font-size: 14px;
+            text-align: center;
+            padding: 20px;
         }
 
-        .instructions h3 {
-            color: #fff;
-            margin-bottom: 10px;
+        .style-2 .placeholder {
+            width: 400px;
+            height: 550px;
         }
 
-        .instructions ul {
-            margin-left: 20px;
+        /* Hidden styles */
+        .hidden {
+            display: none !important;
         }
 
-        .instructions li {
-            margin-bottom: 8px;
-        }
-
-        .instructions code {
-            background: #333;
-            padding: 2px 6px;
-            border-radius: 4px;
-            color: #f5c518;
-        }
-
-        .fixed-badge {
-            display: inline-block;
-            background: #27ae60;
-            color: #fff;
-            padding: 2px 8px;
-            border-radius: 4px;
+        /* Info footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            color: #555;
             font-size: 12px;
-            margin-left: 8px;
-        }
-
-        .variable-badge {
-            display: inline-block;
-            background: #e67e22;
-            color: #fff;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            margin-left: 8px;
         }
     </style>
 </head>
 
 <body>
-    <div class="controls">
-        <h2>📺 元英视角 - 缩略图生成器 v2</h2>
+    <div class="header">
+        <h1>📺 <span>元英视角</span> 缩略图生成器</h1>
+    </div>
 
-        <!-- 固定元素 -->
-        <div class="section-title">固定元素（只需设置一次）</div>
-        <div class="control-row">
-            <div class="control-group">
-                <label>DY人物图 <span class="fixed-badge">固定</span></label>
-                <input type="file" id="dyImage" accept="image/*" onchange="loadImage('dy')">
+    <!-- Style Tabs -->
+    <div class="style-tabs">
+        <div class="style-tab active" onclick="switchStyle(1)">
+            <h3>样式1：双人对话</h3>
+            <p>DY + 主角 对谈</p>
+        </div>
+        <div class="style-tab" onclick="switchStyle(2)">
+            <h3>样式2：单人聚焦</h3>
+            <p>人物居中大图</p>
+        </div>
+        <div class="style-tab" onclick="switchStyle(3)">
+            <h3>样式3：数字冲击</h3>
+            <p>200亿 → 20万</p>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <!-- Controls -->
+        <div class="controls-panel">
+            <!-- Style 1 Controls -->
+            <div id="controls-1">
+                <div class="control-section">
+                    <h4>固定元素</h4>
+                    <div class="control-group">
+                        <label>DY人物图（右侧）<span class="badge badge-fixed">固定</span></label>
+                        <input type="file" id="s1-dy" accept="image/*" onchange="loadImage('s1-dy', 's1-char-dy')">
+                    </div>
+                    <div class="control-group">
+                        <label>背景图（可选）</label>
+                        <input type="file" id="s1-bg" accept="image/*" onchange="loadBg('s1-bg', 's1-bg-layer')">
+                    </div>
+                </div>
+                <div class="control-section">
+                    <h4>每期更换</h4>
+                    <div class="control-group">
+                        <label>主角人物图（左侧）<span class="badge badge-variable">每期换</span></label>
+                        <input type="file" id="s1-guest" accept="image/*"
+                            onchange="loadImage('s1-guest', 's1-char-guest')">
+                    </div>
+                    <div class="control-group">
+                        <label>主标题</label>
+                        <input type="text" id="s1-title" value="能干是罪？"
+                            oninput="updateText('s1-title', 's1-main-title')">
+                    </div>
+                    <div class="control-group">
+                        <label>副标题</label>
+                        <input type="text" id="s1-subtitle" value="褚时健真相"
+                            oninput="updateText('s1-subtitle', 's1-sub-title')">
+                    </div>
+                    <div class="control-group">
+                        <label>期数</label>
+                        <input type="text" id="s1-episode" value="资本往事 EP02"
+                            oninput="updateText('s1-episode', 's1-episode-badge')">
+                    </div>
+                </div>
             </div>
-            <div class="control-group">
-                <label>背景图（可选）<span class="fixed-badge">固定</span></label>
-                <input type="file" id="bgImage" accept="image/*" onchange="loadBackground()">
+
+            <!-- Style 2 Controls -->
+            <div id="controls-2" class="hidden">
+                <div class="control-section">
+                    <h4>内容设置</h4>
+                    <div class="control-group">
+                        <label>主角人物图（居中）</label>
+                        <input type="file" id="s2-main" accept="image/*"
+                            onchange="loadImage('s2-main', 's2-char-main')">
+                    </div>
+                    <div class="control-group">
+                        <label>主标题</label>
+                        <input type="text" id="s2-title" value="能干是罪？"
+                            oninput="updateText('s2-title', 's2-main-title')">
+                    </div>
+                    <div class="control-group">
+                        <label>副标题</label>
+                        <input type="text" id="s2-subtitle" value="褚时健的200亿真相"
+                            oninput="updateText('s2-subtitle', 's2-sub-title')">
+                    </div>
+                    <div class="control-group">
+                        <label>期数</label>
+                        <input type="text" id="s2-episode" value="资本往事 EP02"
+                            oninput="updateText('s2-episode', 's2-episode-badge')">
+                    </div>
+                </div>
             </div>
+
+            <!-- Style 3 Controls -->
+            <div id="controls-3" class="hidden">
+                <div class="control-section">
+                    <h4>数字对比</h4>
+                    <div class="control-group">
+                        <label>大数字</label>
+                        <input type="text" id="s3-bignum" value="200" oninput="updateText('s3-bignum', 's3-big-num')">
+                    </div>
+                    <div class="control-group">
+                        <label>大数字单位</label>
+                        <input type="text" id="s3-bigunit" value="亿" oninput="updateText('s3-bigunit', 's3-big-unit')">
+                    </div>
+                    <div class="control-group">
+                        <label>小数字</label>
+                        <input type="text" id="s3-smallnum" value="20"
+                            oninput="updateText('s3-smallnum', 's3-small-num')">
+                    </div>
+                    <div class="control-group">
+                        <label>小数字单位</label>
+                        <input type="text" id="s3-smallunit" value="万"
+                            oninput="updateText('s3-smallunit', 's3-small-unit')">
+                    </div>
+                </div>
+                <div class="control-section">
+                    <h4>内容设置</h4>
+                    <div class="control-group">
+                        <label>问题/主标题</label>
+                        <input type="text" id="s3-question" value="为什么只拿这么少？"
+                            oninput="updateText('s3-question', 's3-question-text')">
+                    </div>
+                    <div class="control-group">
+                        <label>人物图（右侧）</label>
+                        <input type="file" id="s3-main" accept="image/*"
+                            onchange="loadImage('s3-main', 's3-char-main')">
+                    </div>
+                    <div class="control-group">
+                        <label>人物名</label>
+                        <input type="text" id="s3-episode" value="褚时健"
+                            oninput="updateText('s3-episode', 's3-episode-badge')">
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" onclick="downloadThumbnail()">📥 下载缩略图 (1280×720)</button>
         </div>
 
-        <!-- 每期更换 -->
-        <div class="section-title">每期更换</div>
-        <div class="control-row">
-            <div class="control-group">
-                <label>主角人物图（左侧）<span class="variable-badge">每期换</span></label>
-                <input type="file" id="guestImage" accept="image/*" onchange="loadImage('guest')">
+        <!-- Preview -->
+        <div class="preview-panel">
+            <div class="preview-label">预览 (70% 缩放)</div>
+
+            <!-- Style 1 Thumbnail -->
+            <div class="thumbnail-container style-1" id="thumbnail-1">
+                <div class="bg-layer" id="s1-bg-layer"></div>
+                <div class="gradient-left"></div>
+                <div class="gradient-right"></div>
+                <div class="gradient-bottom"></div>
+                <div class="gradient-center"></div>
+                <div class="character char-left" id="s1-char-guest">
+                    <div class="placeholder">上传主角<br>人物图</div>
+                </div>
+                <div class="character char-right" id="s1-char-dy">
+                    <div class="placeholder">上传DY<br>人物图</div>
+                </div>
+                <div class="episode-badge" id="s1-episode-badge">资本往事 EP02</div>
+                <div class="text-overlay">
+                    <div class="main-title" id="s1-main-title">能干是罪？</div>
+                    <div class="sub-title" id="s1-sub-title">褚时健真相</div>
+                </div>
+                <div class="logo"><span class="logo-text">元英视角</span></div>
             </div>
-            <div class="control-group">
-                <label>主标题（大字）<span class="variable-badge">每期换</span></label>
-                <input type="text" id="mainTitle" value="能干是罪？" oninput="updateThumbnail()">
+
+            <!-- Style 2 Thumbnail -->
+            <div class="thumbnail-container style-2 hidden" id="thumbnail-2">
+                <div class="gradient-left"></div>
+                <div class="gradient-bottom"></div>
+                <div class="accent-line"></div>
+                <div class="character-center" id="s2-char-main">
+                    <div class="placeholder">上传主角<br>人物图</div>
+                </div>
+                <div class="episode-badge" id="s2-episode-badge">资本往事 EP02</div>
+                <div class="text-overlay">
+                    <div class="main-title" id="s2-main-title">能干是罪？</div>
+                    <div class="sub-title" id="s2-sub-title">褚时健的200亿真相</div>
+                </div>
+                <div class="logo"><span class="logo-text">元英视角</span></div>
             </div>
-            <div class="control-group">
-                <label>副标题（黄色）<span class="variable-badge">每期换</span></label>
-                <input type="text" id="subTitle" value="褚时健真相" oninput="updateThumbnail()">
-            </div>
-        </div>
-        <div class="control-row">
-            <div class="control-group">
-                <label>期数<span class="variable-badge">每期换</span></label>
-                <input type="text" id="episode" value="资本往事 EP02" oninput="updateThumbnail()">
-            </div>
-            <div class="control-group">
-                <label>时长</label>
-                <input type="text" id="duration" value="55:00" oninput="updateThumbnail()">
-            </div>
-            <div class="control-group" style="display: flex; align-items: flex-end;">
-                <button class="btn" onclick="downloadThumbnail()">📥 下载缩略图 (1280x720)</button>
+
+            <!-- Style 3 Thumbnail -->
+            <div class="thumbnail-container style-3 hidden" id="thumbnail-3">
+                <div class="gradient-right"></div>
+                <div class="character-right" id="s3-char-main">
+                    <div class="placeholder">上传人物图</div>
+                </div>
+                <div class="big-number">
+                    <span class="number-value" id="s3-big-num">200</span><span class="number-unit"
+                        id="s3-big-unit">亿</span>
+                </div>
+                <div class="contrast-section">
+                    <span class="arrow">→</span>
+                    <span class="small-number" id="s3-small-num">20</span><span class="small-unit"
+                        id="s3-small-unit">万</span>
+                </div>
+                <div class="question">
+                    <span class="question-text" id="s3-question-text">为什么只拿这么少？</span>
+                </div>
+                <div class="episode-badge" id="s3-episode-badge">褚时健</div>
+                <div class="logo"><span class="logo-text">元英视角</span></div>
             </div>
         </div>
     </div>
 
-    <div class="thumbnail-container" id="thumbnail">
-        <!-- Background Image -->
-        <div class="background-image" id="bgLayer"></div>
-
-        <!-- Gradients -->
-        <div class="gradient-left"></div>
-        <div class="gradient-right"></div>
-        <div class="gradient-bottom"></div>
-        <div class="gradient-center"></div>
-
-        <!-- Left Character (Guest - Variable) -->
-        <div class="character character-left" id="charGuest">
-            <div class="character-placeholder">
-                上传 主角 人物图<br>(本期人物)<br><br>建议：PNG透明背景
-            </div>
-        </div>
-
-        <!-- Right Character (DY - Fixed) -->
-        <div class="character character-right" id="charDY">
-            <div class="character-placeholder">
-                上传 DY 人物图<br>(丁元英形象)<br><br>建议：PNG透明背景<br><br>⚡ 只需上传一次
-            </div>
-        </div>
-
-        <!-- Episode Badge -->
-        <div class="episode-badge" id="episodeBadge">资本往事 EP02</div>
-
-        <!-- Main Text -->
-        <div class="text-overlay">
-            <div class="main-title" id="mainTitleDisplay">能干是罪？</div>
-            <div class="sub-title" id="subTitleDisplay">褚时健真相</div>
-        </div>
-
-        <!-- Logo -->
-        <div class="logo">
-            <span class="logo-text">元英视角</span>
-        </div>
-
-        <!-- Duration -->
-        <div class="duration-badge" id="durationBadge">55:00</div>
-    </div>
-
-    <div class="instructions">
-        <h3>📝 使用说明</h3>
-        <ul>
-            <li><strong>DY人物图</strong>：只需上传一次（右侧固定位置），之后每期自动复用</li>
-            <li><strong>背景图</strong>：可选，上传后固定使用，不上传则使用默认深灰背景</li>
-            <li><strong>主角人物图</strong>：每期更换（左侧位置），建议使用PNG透明背景</li>
-            <li><strong>主标题</strong>：核心问题或金句，如 <code>能干是罪？</code>，不超过6字最佳</li>
-            <li><strong>副标题</strong>：人物名或补充信息，如 <code>褚时健真相</code></li>
-        </ul>
-        <h3 style="margin-top: 15px;">🎨 设计要点</h3>
-        <ul>
-            <li>人物图建议<strong>半身照</strong>，面部清晰</li>
-            <li>使用 <a href="https://www.remove.bg" target="_blank" style="color: #f5c518;">remove.bg</a> 去除背景</li>
-            <li>背景图建议使用<strong>暗色调</strong>，避免喧宾夺主</li>
-        </ul>
-        <h3 style="margin-top: 15px;">💡 每期工作流</h3>
-        <ul>
-            <li>1️⃣ 上传本期主角人物图</li>
-            <li>2️⃣ 修改标题和期数</li>
-            <li>3️⃣ 点击下载</li>
-            <li>（DY和背景不用动）</li>
-        </ul>
+    <div class="footer">
+        元英视角 缩略图生成器 v3.0 | 支持3种样式 | 使用 html2canvas 导出
     </div>
 
     <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
     <script>
-        // 存储DY图片，避免每次重新上传
-        let dyImageData = localStorage.getItem('dyImageData');
-        let bgImageData = localStorage.getItem('bgImageData');
+        let currentStyle = 1;
 
-        // 页面加载时恢复保存的图片
-        window.onload = function () {
-            if (dyImageData) {
-                document.getElementById('charDY').innerHTML = `<img src="${dyImageData}" alt="DY character">`;
-            }
-            if (bgImageData) {
-                document.getElementById('bgLayer').style.backgroundImage = `url(${bgImageData})`;
-            }
-        };
+        function switchStyle(style) {
+            currentStyle = style;
 
-        function updateThumbnail() {
-            document.getElementById('mainTitleDisplay').textContent = document.getElementById('mainTitle').value;
-            document.getElementById('subTitleDisplay').textContent = document.getElementById('subTitle').value;
-            document.getElementById('episodeBadge').textContent = document.getElementById('episode').value;
-            document.getElementById('durationBadge').textContent = document.getElementById('duration').value;
+            // Update tabs
+            document.querySelectorAll('.style-tab').forEach((tab, i) => {
+                tab.classList.toggle('active', i === style - 1);
+            });
+
+            // Update controls
+            for (let i = 1; i <= 3; i++) {
+                document.getElementById(`controls-${i}`).classList.toggle('hidden', i !== style);
+                document.getElementById(`thumbnail-${i}`).classList.toggle('hidden', i !== style);
+            }
         }
 
-        function loadImage(type) {
-            let input, container;
+        function updateText(inputId, targetId) {
+            document.getElementById(targetId).textContent = document.getElementById(inputId).value;
+        }
 
-            if (type === 'dy') {
-                input = document.getElementById('dyImage');
-                container = document.getElementById('charDY');
-            } else {
-                input = document.getElementById('guestImage');
-                container = document.getElementById('charGuest');
-            }
+        function loadImage(inputId, containerId) {
+            const input = document.getElementById(inputId);
+            const container = document.getElementById(containerId);
 
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function (e) {
-                    container.innerHTML = `<img src="${e.target.result}" alt="${type} character">`;
-
-                    // 保存DY图片到localStorage
-                    if (type === 'dy') {
-                        dyImageData = e.target.result;
-                        localStorage.setItem('dyImageData', dyImageData);
-                    }
+                    container.innerHTML = `<img src="${e.target.result}" alt="character">`;
                 };
                 reader.readAsDataURL(input.files[0]);
             }
         }
 
-        function loadBackground() {
-            const input = document.getElementById('bgImage');
-            const layer = document.getElementById('bgLayer');
+        function loadBg(inputId, layerId) {
+            const input = document.getElementById(inputId);
+            const layer = document.getElementById(layerId);
 
             if (input.files && input.files[0]) {
                 const reader = new FileReader();
                 reader.onload = function (e) {
                     layer.style.backgroundImage = `url(${e.target.result})`;
-                    bgImageData = e.target.result;
-                    localStorage.setItem('bgImageData', bgImageData);
                 };
                 reader.readAsDataURL(input.files[0]);
             }
         }
 
         function downloadThumbnail() {
-            const thumbnail = document.getElementById('thumbnail');
+            const thumbnail = document.getElementById(`thumbnail-${currentStyle}`);
+
+            // Temporarily reset transform for proper capture
+            thumbnail.style.transform = 'none';
 
             html2canvas(thumbnail, {
                 width: 1280,
@@ -557,8 +844,11 @@
                 useCORS: true,
                 backgroundColor: '#1a1a1a'
             }).then(canvas => {
+                thumbnail.style.transform = 'scale(0.7)';
+
                 const link = document.createElement('a');
-                link.download = `thumbnail_${document.getElementById('episode').value.replace(/\s/g, '_')}.png`;
+                const episode = document.getElementById(`s${currentStyle}-episode`)?.value || 'thumbnail';
+                link.download = `thumbnail_style${currentStyle}_${episode.replace(/\s/g, '_')}.png`;
                 link.href = canvas.toDataURL('image/png');
                 link.click();
             });
